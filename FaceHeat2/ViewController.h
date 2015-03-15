@@ -24,6 +24,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *frameCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *foreheadLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detectLabel;
+@property (weak, nonatomic) IBOutlet UILabel *foreTXLabel;
+@property (weak, nonatomic) IBOutlet UILabel *foreXLabel;
+
 
 @property (strong, nonatomic) NSArray * faceFeatures;
 @end

@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CBB431101AB53C20005D7797 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB4310F1AB53C20005D7797 /* main.m */; };
+		CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431121AB53C20005D7797 /* AppDelegate.m */; };
+		CBB431161AB53C20005D7797 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431151AB53C20005D7797 /* ViewController.m */; };
+		CBB431191AB53C20005D7797 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBB431171AB53C20005D7797 /* Main.storyboard */; };
+		CBB4311B1AB53C20005D7797 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB4311A1AB53C20005D7797 /* Images.xcassets */; };
+		CBB4311E1AB53C20005D7797 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB4311C1AB53C20005D7797 /* LaunchScreen.xib */; };
+		CBB4312A1AB53C20005D7797 /* FaceHeat2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431291AB53C20005D7797 /* FaceHeat2Tests.m */; };
+		CBB431361AB53CBD005D7797 /* FLIROneSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */; };
+		CBB431381AB53D1E005D7797 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431371AB53D1E005D7797 /* libstdc++.dylib */; };
+		CBB4313A1AB53D24005D7797 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431391AB53D24005D7797 /* AssetsLibrary.framework */; };
+		CBB4313C1AB53D2D005D7797 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */; };
+		CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313D1AB53D32005D7797 /* Foundation.framework */; };
+		CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CBB431241AB53C20005D7797 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBB431021AB53C20005D7797 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBB431091AB53C20005D7797;
+			remoteInfo = FaceHeat2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CBB4310A1AB53C20005D7797 /* FaceHeat2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceHeat2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBB4310E1AB53C20005D7797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBB4310F1AB53C20005D7797 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CBB431111AB53C20005D7797 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CBB431121AB53C20005D7797 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CBB431141AB53C20005D7797 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		CBB431151AB53C20005D7797 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CBB431181AB53C20005D7797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CBB4311A1AB53C20005D7797 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CBB4311D1AB53C20005D7797 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		CBB431231AB53C20005D7797 /* FaceHeat2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceHeat2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBB431281AB53C20005D7797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBB431291AB53C20005D7797 /* FaceHeat2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceHeat2Tests.m; sourceTree = "<group>"; };
+		CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLIROneSDK.framework; path = ../../../Documents/FLIROneSDK/FLIROneSDK.framework; sourceTree = "<group>"; };
+		CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FLIROneSDK.bundle; path = ../../../Documents/FLIROneSDK/FLIROneSDK.bundle; sourceTree = "<group>"; };
+		CBB431371AB53D1E005D7797 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		CBB431391AB53D24005D7797 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CBB4313D1AB53D32005D7797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CBB431071AB53C20005D7797 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */,
+				CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */,
+				CBB4313C1AB53D2D005D7797 /* CoreGraphics.framework in Frameworks */,
+				CBB4313A1AB53D24005D7797 /* AssetsLibrary.framework in Frameworks */,
+				CBB431381AB53D1E005D7797 /* libstdc++.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBB431201AB53C20005D7797 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CBB431011AB53C20005D7797 = {
+			isa = PBXGroup;
+			children = (
+				CBB4313D1AB53D32005D7797 /* Foundation.framework */,
+				CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */,
+				CBB431391AB53D24005D7797 /* AssetsLibrary.framework */,
+				CBB431371AB53D1E005D7797 /* libstdc++.dylib */,
+				CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */,
+				CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */,
+				CBB4310C1AB53C20005D7797 /* FaceHeat2 */,
+				CBB431261AB53C20005D7797 /* FaceHeat2Tests */,
+				CBB4310B1AB53C20005D7797 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CBB4310B1AB53C20005D7797 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CBB4310A1AB53C20005D7797 /* FaceHeat2.app */,
+				CBB431231AB53C20005D7797 /* FaceHeat2Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CBB4310C1AB53C20005D7797 /* FaceHeat2 */ = {
+			isa = PBXGroup;
+			children = (
+				CBB431111AB53C20005D7797 /* AppDelegate.h */,
+				CBB431121AB53C20005D7797 /* AppDelegate.m */,
+				CBB431141AB53C20005D7797 /* ViewController.h */,
+				CBB431151AB53C20005D7797 /* ViewController.m */,
+				CBB431171AB53C20005D7797 /* Main.storyboard */,
+				CBB4311A1AB53C20005D7797 /* Images.xcassets */,
+				CBB4311C1AB53C20005D7797 /* LaunchScreen.xib */,
+				CBB4310D1AB53C20005D7797 /* Supporting Files */,
+			);
+			path = FaceHeat2;
+			sourceTree = "<group>";
+		};
+		CBB4310D1AB53C20005D7797 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CBB4310E1AB53C20005D7797 /* Info.plist */,
+				CBB4310F1AB53C20005D7797 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CBB431261AB53C20005D7797 /* FaceHeat2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CBB431291AB53C20005D7797 /* FaceHeat2Tests.m */,
+				CBB431271AB53C20005D7797 /* Supporting Files */,
+			);
+			path = FaceHeat2Tests;
+			sourceTree = "<group>";
+		};
+		CBB431271AB53C20005D7797 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CBB431281AB53C20005D7797 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CBB431091AB53C20005D7797 /* FaceHeat2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBB4312D1AB53C20005D7797 /* Build configuration list for PBXNativeTarget "FaceHeat2" */;
+			buildPhases = (
+				CBB431061AB53C20005D7797 /* Sources */,
+				CBB431071AB53C20005D7797 /* Frameworks */,
+				CBB431081AB53C20005D7797 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceHeat2;
+			productName = FaceHeat2;
+			productReference = CBB4310A1AB53C20005D7797 /* FaceHeat2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CBB431221AB53C20005D7797 /* FaceHeat2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBB431301AB53C20005D7797 /* Build configuration list for PBXNativeTarget "FaceHeat2Tests" */;
+			buildPhases = (
+				CBB4311F1AB53C20005D7797 /* Sources */,
+				CBB431201AB53C20005D7797 /* Frameworks */,
+				CBB431211AB53C20005D7797 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBB431251AB53C20005D7797 /* PBXTargetDependency */,
+			);
+			name = FaceHeat2Tests;
+			productName = FaceHeat2Tests;
+			productReference = CBB431231AB53C20005D7797 /* FaceHeat2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CBB431021AB53C20005D7797 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Alick Xu";
+				TargetAttributes = {
+					CBB431091AB53C20005D7797 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					CBB431221AB53C20005D7797 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = CBB431091AB53C20005D7797;
+					};
+				};
+			};
+			buildConfigurationList = CBB431051AB53C20005D7797 /* Build configuration list for PBXProject "FaceHeat2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CBB431011AB53C20005D7797;
+			productRefGroup = CBB4310B1AB53C20005D7797 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CBB431091AB53C20005D7797 /* FaceHeat2 */,
+				CBB431221AB53C20005D7797 /* FaceHeat2Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CBB431081AB53C20005D7797 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBB431361AB53CBD005D7797 /* FLIROneSDK.bundle in Resources */,
+				CBB431191AB53C20005D7797 /* Main.storyboard in Resources */,
+				CBB4311E1AB53C20005D7797 /* LaunchScreen.xib in Resources */,
+				CBB4311B1AB53C20005D7797 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBB431211AB53C20005D7797 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CBB431061AB53C20005D7797 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBB431161AB53C20005D7797 /* ViewController.m in Sources */,
+				CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */,
+				CBB431101AB53C20005D7797 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBB4311F1AB53C20005D7797 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBB4312A1AB53C20005D7797 /* FaceHeat2Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CBB431251AB53C20005D7797 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBB431091AB53C20005D7797 /* FaceHeat2 */;
+			targetProxy = CBB431241AB53C20005D7797 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CBB431171AB53C20005D7797 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBB431181AB53C20005D7797 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CBB4311C1AB53C20005D7797 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBB4311D1AB53C20005D7797 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CBB4312B1AB53C20005D7797 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CBB4312C1AB53C20005D7797 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CBB4312E1AB53C20005D7797 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/alickxu/Documents/FLIROneSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = FaceHeat2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
+			};
+			name = Debug;
+		};
+		CBB4312F1AB53C20005D7797 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/alickxu/Documents/FLIROneSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = FaceHeat2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
+			};
+			name = Release;
+		};
+		CBB431311AB53C20005D7797 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FaceHeat2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaceHeat2.app/FaceHeat2";
+			};
+			name = Debug;
+		};
+		CBB431321AB53C20005D7797 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FaceHeat2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaceHeat2.app/FaceHeat2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CBB431051AB53C20005D7797 /* Build configuration list for PBXProject "FaceHeat2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBB4312B1AB53C20005D7797 /* Debug */,
+				CBB4312C1AB53C20005D7797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBB4312D1AB53C20005D7797 /* Build configuration list for PBXNativeTarget "FaceHeat2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBB4312E1AB53C20005D7797 /* Debug */,
+				CBB4312F1AB53C20005D7797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CBB431301AB53C20005D7797 /* Build configuration list for PBXNativeTarget "FaceHeat2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBB431311AB53C20005D7797 /* Debug */,
+				CBB431321AB53C20005D7797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CBB431021AB53C20005D7797 /* Project object */;
+}

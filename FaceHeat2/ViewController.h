@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import <FLIROneSDK/FLIROneSDK.h>
+#import <tgmath.h>
+
+#import "UIImageView+GeometryConversion.h"
 
 @interface ViewController : UIViewController <FLIROneSDKImageReceiverDelegate, FLIROneSDKStreamManagerDelegate, FLIROneSDKVideoRendererDelegate, FLIROneSDKImageEditorDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *ycBview;
-@property (weak, nonatomic) IBOutlet UIImageView *thermalView;
+
 @property (weak, nonatomic) IBOutlet UILabel *faceFeatureLabel;
-@property (strong, nonatomic) CIDetector *facedetector;
 
 @property (weak, nonatomic) IBOutlet UILabel *rightEyeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftEyeLabel;
@@ -28,8 +29,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *detectLabel;
 @property (weak, nonatomic) IBOutlet UILabel *foreTXLabel;
 @property (weak, nonatomic) IBOutlet UILabel *foreXLabel;
+@property (weak, nonatomic) IBOutlet UILabel *thermalSizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *visualSizeLabel;
 
 
-@property (strong, nonatomic) NSArray * faceFeatures;
 @end
 

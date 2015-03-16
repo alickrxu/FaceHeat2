@@ -7,23 +7,22 @@
 //
 
 #import "ViewController.h"
-#import <tgmath.h>
 
 @interface ViewController ()
 
 //The main viewfinder for the FLIR ONE
+@property (weak, nonatomic) IBOutlet UIImageView *visualYCBView;
+@property (weak, nonatomic) IBOutlet UIImageView *thermalView;
 
-
-//labels for various camera information
-@property (strong, nonatomic) UIView *hottestPoint;
-@property (strong, nonatomic) UILabel *hottestLabel;
+// face feature properties
+@property (strong, nonatomic) CIDetector *facedetector;
+@property (strong, nonatomic) NSArray * faceFeatures;
 
 @property (strong, nonatomic) NSData *thermalData;
 @property (nonatomic) CGSize thermalSize;
 
+@property (strong, nonatomic) NSData *visualData;
 @property (nonatomic) CGSize visualSize;
-//buttons for interacting with the FLIR ONE
-//capture video
 
 //FLIR data for UI to display
 @property (strong, nonatomic) UIImage *visualYCbCrImage;
@@ -64,6 +63,9 @@
     //create a queue for rendering
     self.renderQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
+    //set content mode
+    self.visualYCBView.contentMode = UIViewContentModeScaleAspectFit;
+    self.thermalView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.imgOption = @{CIDetectorImageOrientation: @8};
     
@@ -118,11 +120,11 @@
 - (void) updateUI {
     dispatch_async(dispatch_get_main_queue(), ^{
         //here is where we set the visual image
-        self.ycBview.image = self.visualYCbCrImage;
-        self.ycBview.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate by 90 degrees to match orientation
+        [self.visualYCBView setImage:self.visualYCbCrImage];
+        self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate by 90 degrees to match orientation
         
         //set thermalView
-        self.thermalView.image = self.radiometricImage;
+        [self.thermalView setImage:self.radiometricImage];
         self.thermalView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate thermal 90 degrees
         
         //final version won't need this, this is for testing
@@ -139,14 +141,16 @@
                 [self performTemperatureCalculations];
             }
         }
+        self.visualSizeLabel.text = [NSString stringWithFormat:@"visViewSize: %0.2f x %0.2f", self.visualYCBView.image.size.width, self.visualYCBView.image.size.height];
+        //[NSString stringWithFormat:@"visImgSize: %0.2f x %0.2f",self.visualSize.width,self.visualSize.height];
         
         self.frameCountLabel.text = [NSString stringWithFormat:@"Count: %ld, %0.2f", (long)self.frameCount, self.fps];
         
         for (CIFaceFeature *faceFeature in self.faceFeatures){
             
-            self.originLabel.text = [NSString stringWithFormat:@"origin: %0.2f %0.2f", faceFeature.bounds.origin.x, faceFeature.bounds.origin.y];
+            self.originLabel.text = [NSString stringWithFormat:@"face origin: %0.2f %0.2f", faceFeature.bounds.origin.x, faceFeature.bounds.origin.y];
             
-            self.faceFeatureLabel.text = [NSString stringWithFormat:@"size: %0.2f x %0.2f", faceFeature.bounds.size.height, faceFeature.bounds.size.width];
+            self.faceFeatureLabel.text = [NSString stringWithFormat:@"faceSize: %0.2f x %0.2f", faceFeature.bounds.size.height, faceFeature.bounds.size.width];
             
             self.rightEyeLabel.text = [NSString stringWithFormat:@"right eye: %0.2f %0.2f", faceFeature.rightEyePosition.x, faceFeature.rightEyePosition.y];
             
@@ -225,6 +229,7 @@
 - (void)FLIROneSDKDelegateManager:(FLIROneSDKDelegateManager *)delegateManager didReceiveVisualYCbCr888Image:(NSData *)visualYCbCr888Image imageSize:(CGSize)size {
     
     @synchronized(self) {
+        self.visualData = visualYCbCr888Image; //update visual data
         self.visualSize = size;
     }
     
@@ -234,7 +239,7 @@
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //main thread
             self.visualYCbCrImage = [FLIROneSDKUIImage imageWithFormat:FLIROneSDKImageOptionsVisualYCbCr888Image andData:visualYCbCr888Image andSize:size];
-            NSLog(@"%ld", self.visualYCbCrImage.imageOrientation);
+//            NSLog(@"%ld", self.visualYCbCrImage.imageOrientation);
         });
         
     });
@@ -297,6 +302,7 @@
     //
     CGFloat foreTX = -69; //forehead x point
     CGFloat foreTY = -69; //forehead y
+    CGPoint foreT;
     
     CGFloat rightTX = -69;
     CGFloat rightTY = -69;
@@ -313,17 +319,31 @@
     
     if(hasForehead) {
         //visual coordinates
-        CGFloat foreX = (faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2;
-        CGFloat foreY = ((faceHeight+faceFeature.bounds.origin.y) + fmaxf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2;
+        CGPoint foreV = CGPointMake((faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2, ((faceHeight+faceFeature.bounds.origin.y) + fmaxf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2);
+        foreTX = [self resolutionTranslateX:foreV.x];
+        foreTX = floorf(foreTX);
+        foreTY = [self resolutionTranslateY:foreV.y];
+        foreTY = floorf(foreTY);
         
-        self.foreXLabel.text = [NSString stringWithFormat:@"foreX: %0.2f", foreX];
+//        foreT = [self.thermalView convertPoint:foreConvert fromView:self.visualYCBView];
+//        CGFloat foreX = (faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2;
+//        CGFloat foreY = ((faceHeight+faceFeature.bounds.origin.y) + fmaxf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2;
+        
+        self.foreXLabel.text = [NSString stringWithFormat:@"foreV: %0.2f, %0.2f", foreV.x, foreV.y];
         //thermal coordinates
-        foreTX = [self resolutionTranslateX:foreX];
-        if(foreTX != -69) {
-            self.foreheadSet = YES;
-            self.foreTXLabel.text = [NSString stringWithFormat:@"foreTX: %0.2f", foreTX];
-        }
-        foreTY = [self resolutionTranslateY:foreY];
+//        foreTX = [self resolutionTranslateX:foreX];
+        
+        
+        //foreT = [self.thermalView convertPoint:CGPointMake(foreX, foreY) fromView:self.visualYCBView];
+        self.foreTXLabel.text = [NSString stringWithFormat:@"foreT: %0.2f, %0.2f", foreTX, foreTY];
+        
+        
+//        foreTX = floorf(foreTX);
+//        if(foreTX != -69) {
+//            self.foreTXLabel.text = [NSString stringWithFormat:@"foreTX: %0.2f", foreTX];
+//        }
+//        foreTY = [self resolutionTranslateY:foreY];
+//        foreTY = floorf(foreTY);
     }
     
     if(hasRightCheek) {
@@ -352,6 +372,9 @@
     
     //get total number of pixels to iterate over
     int totalPixels = self.thermalSize.width * self.thermalSize.height;
+    self.thermalSizeLabel.text = [NSString stringWithFormat:@"tViewSize: %0.2f x %0.2f", self.thermalView.image.size.width, self.thermalView.image.size.height];
+    
+    //[NSString stringWithFormat:@"tImgSize: %0.2f x %0.2f",self.thermalSize.width,self.thermalSize.height];
     
     float degreesKelvin; //gets temperature at index i
     CGFloat xCoord; //x coord of thermal data
@@ -361,11 +384,15 @@
     //with just reading the 3 specific points 
     for(int i = 0; i < totalPixels; i++) {
         degreesKelvin = tempData[i] / 100.0;
-        xCoord = fmod(i, self.thermalSize.width);
-        yCoord = floor(i / self.thermalSize.height);
+        xCoord = (i % (int)self.thermalSize.width)/self.thermalSize.width;
+        xCoord = floorf(xCoord);
+        yCoord = (i / self.thermalSize.width)/self.thermalSize.height;
+        yCoord = floorf(yCoord);
         
         //get temperature of forehead
-        if(hasForehead && xCoord == foreTX && yCoord == foreTY){
+        if(xCoord == foreTX && yCoord == foreTY){
+            self.foreheadSet = YES;
+
             //store in dictionary
             self.tempPoints[@"forehead"] = [NSNumber numberWithFloat:degreesKelvin];
             
@@ -373,7 +400,7 @@
             self.foreheadCheekPositions[@"forehead"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
         }
         
-        if(hasLeftCheek && xCoord == leftTX && yCoord == leftTY) {
+        if(xCoord == leftTX && yCoord == leftTY) {
             //store in dictionary
             self.tempPoints[@"left_cheek"] = [NSNumber numberWithFloat:degreesKelvin];
             
@@ -381,7 +408,7 @@
             self.foreheadCheekPositions[@"left_cheek"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
         }
         
-        if(hasRightCheek && xCoord == rightTX && yCoord == rightTY) {
+        if(xCoord == rightTX && yCoord == rightTY) {
             //store in dictionary
             self.tempPoints[@"right_cheek"] = [NSNumber numberWithFloat:degreesKelvin];
             

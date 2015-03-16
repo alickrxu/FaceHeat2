@@ -155,9 +155,8 @@
             self.rightEyeLabel.text = [NSString stringWithFormat:@"right eye: %0.2f %0.2f", faceFeature.rightEyePosition.x, faceFeature.rightEyePosition.y];
             
             
-            NSValue* foreheadValue = self.tempPoints[@"forehead"];
-            CGPoint foreheadCoord = foreheadValue.CGPointValue;
-            self.foreheadLabel.text = [NSString stringWithFormat:@"forehead: %0.2f %0.2f", foreheadCoord.x, foreheadCoord.y];
+        
+            self.foreheadLabel.text = [NSString stringWithFormat:@"forehead temp: %@", self.tempPoints[@"forehead"]];
             
             
             
@@ -384,9 +383,9 @@
     //with just reading the 3 specific points 
     for(int i = 0; i < totalPixels; i++) {
         degreesKelvin = tempData[i] / 100.0;
-        xCoord = (i % (int)self.thermalSize.width)/self.thermalSize.width;
+        xCoord = (i % (int)self.thermalSize.width);
         xCoord = floorf(xCoord);
-        yCoord = (i / self.thermalSize.width)/self.thermalSize.height;
+        yCoord = (i / self.thermalSize.height);
         yCoord = floorf(yCoord);
         
         //get temperature of forehead

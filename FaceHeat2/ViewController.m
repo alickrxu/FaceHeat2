@@ -318,7 +318,7 @@
     
     if(hasForehead) {
         //visual coordinates
-        CGPoint foreV = CGPointMake((faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2, ((faceHeight+faceFeature.bounds.origin.y) + fmaxf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2);
+        CGPoint foreV = CGPointMake((faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2, ((faceFeature.bounds.origin.y) + fminf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2);
         foreTX = [self resolutionTranslateX:foreV.x];
         foreTX = floorf(foreTX);
         foreTY = [self resolutionTranslateY:foreV.y];

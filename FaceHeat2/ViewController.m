@@ -120,6 +120,7 @@
 - (void) updateUI {
     dispatch_async(dispatch_get_main_queue(), ^{
         //here is where we set the visual image
+        self.visualYCbCrImage = [self imageByDrawingCircleOnImage:self.visualYCbCrImage];
         [self.visualYCBView setImage:self.visualYCbCrImage];
         self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate by 90 degrees to match orientation
         
@@ -415,6 +416,72 @@
             self.foreheadCheekPositions[@"right_cheek"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
         }
     }
+}
+
+
+- (UIImage *)imageByDrawingCircleOnImage:(UIImage *)image
+{
+    if (self.faceFeatures.count == 0)
+        return image;
+    
+    
+    CIFaceFeature* faceFeature = self.faceFeatures[0];
+    
+    float faceWidth = faceFeature.bounds.size.width;
+    float faceHeight = faceFeature.bounds.size.height;
+    
+    // begin a graphics context of sufficient size
+    UIGraphicsBeginImageContext(image.size);
+    
+    // draw original image into the context
+    [image drawAtPoint:CGPointZero];
+    
+    // get the context for CoreGraphics
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    // set stroking color and draw circle
+    [[UIColor redColor] setStroke];
+    
+    
+    
+    
+    if(faceFeature.hasLeftEyePosition){
+        CGRect leftEyeRect =  CGRectMake(faceFeature.leftEyePosition.x-faceWidth*0.15, faceFeature.leftEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        leftEyeRect = CGRectInset(leftEyeRect, 0, 0);
+        CGContextStrokeRect(ctx, leftEyeRect);
+    }
+    
+    if(faceFeature.hasRightEyePosition){
+        CGRect rightEyeRect =  CGRectMake(faceFeature.rightEyePosition.x-faceWidth*0.15, faceFeature.rightEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        rightEyeRect = CGRectInset(rightEyeRect, 0, 0);
+        CGContextStrokeRect(ctx, rightEyeRect);
+    }
+    if (faceFeature.hasMouthPosition){
+        CGRect mouthRect = CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2, faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4);
+        mouthRect = CGRectInset(mouthRect, 0, 0);
+        CGContextStrokeRect(ctx, mouthRect);
+    }
+    
+    
+    
+    // make circle rect 5 px from border
+    CGRect facerect = CGRectMake(faceFeature.bounds.origin.x, faceFeature.bounds.origin.y,
+                                   faceWidth,
+                                   faceHeight);
+    
+    
+    facerect = CGRectInset(facerect, 0, 0);
+    
+    // draw circle
+    CGContextStrokeRect(ctx, facerect);
+    
+    // make image out of bitmap context
+    UIImage *retImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // free the context
+    UIGraphicsEndImageContext();
+    
+    return retImage;
 }
 
 

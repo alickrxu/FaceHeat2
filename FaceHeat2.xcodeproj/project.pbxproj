@@ -20,6 +20,7 @@
 		CBB4313C1AB53D2D005D7797 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */; };
 		CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313D1AB53D32005D7797 /* Foundation.framework */; };
 		CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */; };
+		CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		CBB431391AB53D24005D7797 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CBB4313D1AB53D32005D7797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+GeometryConversion.h"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.h"; sourceTree = "<group>"; };
+		CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+GeometryConversion.m"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				CBB431111AB53C20005D7797 /* AppDelegate.h */,
+				CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */,
+				CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */,
 				CBB431121AB53C20005D7797 /* AppDelegate.m */,
 				CBB431141AB53C20005D7797 /* ViewController.h */,
 				CBB431151AB53C20005D7797 /* ViewController.m */,
@@ -243,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */,
 				CBB431161AB53C20005D7797 /* ViewController.m in Sources */,
 				CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */,
 				CBB431101AB53C20005D7797 /* main.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import <FLIROneSDK/FLIROneSDK.h>
 #import <tgmath.h>

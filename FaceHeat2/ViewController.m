@@ -67,9 +67,9 @@
     self.visualYCBView.contentMode = UIViewContentModeScaleAspectFit;
     self.thermalView.contentMode = UIViewContentModeScaleAspectFit;
     
-    self.imgOption = @{CIDetectorImageOrientation: @8};
+    self.imgOption = @{CIDetectorImageOrientation: @1}; //kCBImagePropertyOrientation
     
-    NSDictionary *detectoroptions = @{ CIDetectorAccuracy : CIDetectorAccuracyLow, CIDetectorTracking: @YES};
+    NSDictionary *detectoroptions = @{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorTracking: @YES};
     self.facedetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectoroptions];
     
     // add view controller to FLIR stream manager delegates
@@ -122,11 +122,12 @@
         //here is where we set the visual image
         self.visualYCbCrImage = [self imageByDrawingCircleOnImage:self.visualYCbCrImage];
         [self.visualYCBView setImage:self.visualYCbCrImage];
-        self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate by 90 degrees to match orientation
+        //rotate by 90 degrees to match landscape orientation
+//        self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2);
         
         //set thermalView
         [self.thermalView setImage:self.radiometricImage];
-        self.thermalView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate thermal 90 degrees
+//        self.thermalView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate thermal 90 degrees
         
         //final version won't need this, this is for testing
         if (self.connected)
@@ -235,7 +236,8 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //background thread
-        self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage: self.visualYCbCrImage] options:_imgOption];
+        
+        self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage: self.visualYCbCrImage] options:self.imgOption];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //main thread
             self.visualYCbCrImage = [FLIROneSDKUIImage imageWithFormat:FLIROneSDKImageOptionsVisualYCbCr888Image andData:visualYCbCr888Image andSize:size];
@@ -418,9 +420,23 @@
     }
 }
 
+// utility routing used during image capture to set up capture orientation
+- (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
+{
+    AVCaptureVideoOrientation result = deviceOrientation;
+    if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
+        result = AVCaptureVideoOrientationLandscapeRight;
+    else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
+        result = AVCaptureVideoOrientationLandscapeLeft;
+    return result;
+}
+
 
 - (UIImage *)imageByDrawingCircleOnImage:(UIImage *)image
 {
+    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+
     if (self.faceFeatures.count == 0)
         return image;
     
@@ -439,24 +455,28 @@
     // get the context for CoreGraphics
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    // set stroking color and draw circle
-    [[UIColor redColor] setStroke];
-    
-    
-    
     
     if(faceFeature.hasLeftEyePosition){
+        // set stroking color and draw circle
+        [[UIColor redColor] setStroke];
+        
         CGRect leftEyeRect =  CGRectMake(faceFeature.leftEyePosition.x-faceWidth*0.15, faceFeature.leftEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
         leftEyeRect = CGRectInset(leftEyeRect, 0, 0);
         CGContextStrokeRect(ctx, leftEyeRect);
     }
     
     if(faceFeature.hasRightEyePosition){
+        // set stroking color and draw circle
+        [[UIColor blueColor] setStroke];
+        
         CGRect rightEyeRect =  CGRectMake(faceFeature.rightEyePosition.x-faceWidth*0.15, faceFeature.rightEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
         rightEyeRect = CGRectInset(rightEyeRect, 0, 0);
         CGContextStrokeRect(ctx, rightEyeRect);
     }
     if (faceFeature.hasMouthPosition){
+        // set stroking color and draw circle
+        [[UIColor greenColor] setStroke];
+        
         CGRect mouthRect = CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2, faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4);
         mouthRect = CGRectInset(mouthRect, 0, 0);
         CGContextStrokeRect(ctx, mouthRect);
@@ -501,7 +521,7 @@
 // only support landscape orientation
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskLandscapeLeft;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

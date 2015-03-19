@@ -33,6 +33,7 @@
 		CBD02EC31ABAC1800077B145 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB71ABAC1800077B145 /* BitmapDrawManipulator.m */; };
 		CBD02EC41ABAC1800077B145 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */; };
 		CBD02EC51ABAC1800077B145 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */; };
+		CBD02EC91ABAFEEB0077B145 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EC71ABAFEEB0077B145 /* BLE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,9 @@
 		CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
 		CBD02EBA1ABAC1800077B145 /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
 		CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
+		CBD02EC61ABAFEEB0077B145 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLE.h"; sourceTree = "<group>"; };
+		CBD02EC71ABAFEEB0077B145 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE.m; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLE.m"; sourceTree = "<group>"; };
+		CBD02EC81ABAFEEB0077B145 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLEDefines.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,9 @@
 				CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */,
 				CBD02E9E1ABAB1440077B145 /* BitmapContextRep.h */,
 				CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */,
+				CBD02EC61ABAFEEB0077B145 /* BLE.h */,
+				CBD02EC71ABAFEEB0077B145 /* BLE.m */,
+				CBD02EC81ABAFEEB0077B145 /* BLEDefines.h */,
 				CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */,
 				CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */,
 				CBD02EA51ABAC1800077B145 /* Compatibility */,
@@ -339,6 +346,7 @@
 				CBD02EBE1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m in Sources */,
 				CBD02EBC1ABAC1800077B145 /* NSImage+ANImageBitmapRep.m in Sources */,
 				CBD02EBF1ABAC1800077B145 /* CGContextCreator.m in Sources */,
+				CBD02EC91ABAFEEB0077B145 /* BLE.m in Sources */,
 				CBD02EC01ABAC1800077B145 /* CGImageContainer.m in Sources */,
 				CBD02EC11ABAC1800077B145 /* BitmapContextManipulator.m in Sources */,
 				CBD02EC21ABAC1800077B145 /* BitmapCropManipulator.m in Sources */,

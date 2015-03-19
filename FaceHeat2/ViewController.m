@@ -50,9 +50,15 @@
 
 @property (nonatomic) BOOL faceHeatDetected;
 
+
+
 @end
 
 @implementation ViewController
+@synthesize ble;
+int currentAngle = 125; //current horizontal angle of the rig
+int horizontalRigBounds = 20; //boundaries of the looking box for the rig to move. in context of thermal camera
+int verticalRigBounds = 100;
 
 
 - (void)viewDidLoad {
@@ -75,8 +81,8 @@
     self.facedetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectoroptions];
     
     // add view controller to FLIR stream manager delegates
-[[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
-   [[FLIROneSDKStreamManager sharedInstance] setImageOptions: self.options];
+    [[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
+    [[FLIROneSDKStreamManager sharedInstance] setImageOptions: self.options];
     self.faceFeatures = @[];
     
     //initialize dictionaries
@@ -90,12 +96,17 @@
     self.faceHeatDetected = NO;
     //disable locking of the screen
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
     //UIImage *img = [UIImage imageNamed:@"face-map.jpg"];
     //self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage:img] options:@{}];
     //self.visualYCBView.image = img;
-   // self.thermalView.image = [self imageByDrawingCircleOnImage:img];
+    // self.thermalView.image = [self imageByDrawingCircleOnImage:img];
     
-    //update UI here
+    //setup bluetooth
+    ble = [[BLE alloc] init];
+    [ble controlSetup];
+    ble.delegate = self;
+    
 }
 
 
@@ -104,9 +115,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void) FLIROneSDKDidConnect {
     self.connected = YES;
-    
+    [self scanForPeripherals];
+
     self.frameCount = 0; //initialize frameCount
     [self updateUI];
 }
@@ -149,6 +162,8 @@
         else
             self.detectLabel.text = @"no face yet";
         
+        self.currentAngleLabel.text = [NSString stringWithFormat:@"currentAngle: %d", currentAngle];
+        
         
         if(self.thermalData && self.options & FLIROneSDKImageOptionsThermalRadiometricKelvinImage) {
             @synchronized(self) {
@@ -170,7 +185,7 @@
             
             
         
-            self.foreheadLabel.text = [NSString stringWithFormat:@"forehead temp: %@", self.tempPoints[@"forehead"]];
+//            self.foreheadLabel.text = [NSString stringWithFormat:@"forehead temp: %@", self.tempPoints[@"forehead"]];
             
             
             
@@ -213,6 +228,12 @@
         self.faceFeatures = @[];
     });
 }
+
+/*
+ *  FACE DETECTION
+ *
+ *
+ */
 
 // once per frame, this method is called and notifies the delegate. Depending on type of image, a different
 // didReceive method gets called
@@ -488,8 +509,26 @@
     self.foreheadCheekPositions[@"right_cheek"] = [NSValue valueWithCGPoint:CGPointMake(rightCheekRect.origin.x, rightCheekRect.origin.y)];
     
     //FACE DETECTION
+    //if forehead is greater than the left and right cheeks by at least two degrees
     if(foreheadTotal - (leftCheekTotal + rightCheekTotal)/2 >= 2) {
         self.faceHeatDetected = YES;
+        // MOVE THE RIG
+        //horizontal movement: track the forehead x
+        CGFloat midForehead = CGRectGetMidX(foreheadRect);
+        
+        if(midForehead > horizontalRigBounds && midForehead < self.visualSize.width - horizontalRigBounds) {
+            if(midForehead > self.thermalSize.width/2) {
+                currentAngle += 5;
+            }
+            else if(midForehead < self.thermalSize.width/2) {
+                currentAngle -= 5;
+            }
+            if (currentAngle > 255)
+                currentAngle = 255;
+            else if (currentAngle < 0)
+                currentAngle = 0;
+        }
+        [self moveRigLeftOrRight:currentAngle];
     }
     else {
         self.faceHeatDetected = NO;
@@ -635,6 +674,109 @@
     }
     return image;
 }
+
+/*
+ *  BLUETOOTH
+ *
+ */
+-(void) bleDidConnect {
+//    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+//    session.sessionPreset = AVCaptureSessionPresetPhoto;
+//    
+//    //Add device
+//    AVCaptureDevice *device =
+//    [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    
+//    //Input
+//    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+//    
+//    if (!input)
+//    {
+//        NSLog(@"No Input");
+//    }
+//    
+//    [session addInput:input];
+//    //Output
+//    self.output = [[AVCaptureVideoDataOutput alloc] init];
+//    [session addOutput:self.output];
+//    self.output.videoSettings = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
+//    
+//    
+//    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+//    [_output setSampleBufferDelegate:self queue:queue];
+//    
+//    //Preview Layer
+//    _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+//    UIView *myView = self.view;
+//    _previewLayer.frame = CGRectMake(0, 0, myView.bounds.size.height, myView.bounds.size.width);
+//    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//    [self.view.layer addSublayer:_previewLayer];
+//    AVCaptureConnection *previewLayerConnection=self.previewLayer.connection;
+//    previewLayerConnection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    char init1[] = {'S', 0x02, 0x04};
+    [self sendData: [NSData dataWithBytes:init1 length:3]];
+//    char centerX[] = {'O', 0x02, currentAngle};
+//    
+//    [self sendData:[NSData dataWithBytes:centerX length:3]];
+//    //Start capture session
+//    [session startRunning];
+//    
+}
+
+- (void) sendData:(char *) bytes length:(int) length{
+    [self sendData:[NSData dataWithBytes:bytes length:length]];
+}
+
+- (void) sendData:(NSData *) data {
+    [ble write:data];
+}
+
+- (IBAction)scan:(id)sender {
+    [self scanForPeripherals];
+}
+
+- (void) scanForPeripherals {
+    [ble findBLEPeripherals:5];
+    [NSTimer scheduledTimerWithTimeInterval:(float)5.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+}
+
+- (void) bleDidReceiveData:(unsigned char *)data length:(int)length{
+    
+    //   NSLog(@"received data: %s", data);
+}
+
+-(void) connectionTimer:(NSTimer *)timer
+{
+    if (ble.peripherals.count < 1){
+        NSLog(@"none found");
+        return;
+    }
+    self.activePeripheral = ble.peripherals[0];
+    [ble connectPeripheral:self.activePeripheral];
+}
+
+//0x03 means move rig vertically
+//0x02 means move rig horizontally
+-(void) moveRigUpOrDown:(int)angle {
+    if (angle > 255)
+        angle = 255;
+    else if (angle < 0)
+        angle = 0;
+
+    char data[] = {'O', 0x03, angle};
+    [self sendData:[NSData dataWithBytes:data length:3]];
+}
+
+-(void) moveRigLeftOrRight:(int)angle {
+    if (angle > 255)
+        angle = 255;
+    else if (angle < 0)
+        angle = 0;
+    
+    char data[] = {'O', 0x02, angle};
+    [self sendData:[NSData dataWithBytes:data length:3]];
+}
+
 
 //// only support landscape orientation
 //- (NSUInteger)supportedInterfaceOrientations

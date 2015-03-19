@@ -12,6 +12,13 @@
 #import <FLIROneSDK/FLIROneSDK.h>
 #import <tgmath.h>
 
+//for bluetooth
+#import <ImageIO/ImageIO.h>
+#import <CoreImage/CoreImage.h>
+#import <QuartzCore/QuartzCore.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLE.h"
+
 
 @interface ViewController : UIViewController <FLIROneSDKImageReceiverDelegate, FLIROneSDKStreamManagerDelegate, FLIROneSDKVideoRendererDelegate, FLIROneSDKImageEditorDelegate>
 
@@ -32,6 +39,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *thermalSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *visualSizeLabel;
 
+@property(nonatomic, strong) BLE *ble;
+@property(nonatomic, strong) CBPeripheral *activePeripheral;
+@property(nonatomic, strong) AVCaptureVideoDataOutput *output;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+- (IBAction)scan:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *currentAngleLabel;
 
 @end
 

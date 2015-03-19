@@ -11,7 +11,7 @@
 
 #import <FLIROneSDK/FLIROneSDK.h>
 #import <tgmath.h>
-
+#import "SuperThermal.hpp"
 
 @interface ViewController : UIViewController <FLIROneSDKImageReceiverDelegate, FLIROneSDKStreamManagerDelegate, FLIROneSDKVideoRendererDelegate, FLIROneSDKImageEditorDelegate>
 
@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *foreXLabel;
 @property (weak, nonatomic) IBOutlet UILabel *thermalSizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *visualSizeLabel;
+@property (strong,nonatomic ) SuperThermal *supertherm;
 
 
 @end

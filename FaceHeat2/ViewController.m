@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "SuperThermal.hpp"
 @interface ViewController ()
 
 //The main viewfinder for the FLIR ONE
@@ -73,7 +73,7 @@
     self.facedetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectoroptions];
     
     // add view controller to FLIR stream manager delegates
-[[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
+   [[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
    [[FLIROneSDKStreamManager sharedInstance] setImageOptions: self.options];
     self.faceFeatures = @[];
     
@@ -82,7 +82,10 @@
     self.foreheadCheekPositions = [NSMutableDictionary dictionary];
     
     self.foreheadSet = NO;
+    self.supertherm = [[SuperThermal alloc] init];
     
+    
+  //  self.visualYCBView.image = [self drawRectOnImage:image rect:rect];
     //disable locking of the screen
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     //UIImage *img = [UIImage imageNamed:@"face-map.jpg"];
@@ -131,7 +134,18 @@
 //        self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2);
         
         //set thermalView
-        [self.thermalView setImage:self.radiometricImage];
+        if (self.radiometricImage){
+        NSArray *array = [self.supertherm findFaces:self.radiometricImage];
+        if ([array count] > 0){
+            NSValue *val = array[0];
+            CGRect rect = [val CGRectValue];
+            UIImage *newImage = [self drawRectOnImage:self.radiometricImage rect:rect];
+            [self.thermalView setImage:newImage];
+        }
+        else {
+            [self.thermalView setImage:self.radiometricImage];
+        }
+        }
 //        self.thermalView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate thermal 90 degrees
         
         //final version won't need this, this is for testing
@@ -513,7 +527,19 @@
     UIGraphicsEndImageContext();
     return retImage;
 }
+- (UIImage *) drawRectOnImage:(UIImage *) image rect: (CGRect) rect {
+    UIGraphicsBeginImageContext(image.size);
+    [image drawAtPoint:CGPointZero];
 
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    // draw circle
+    CGContextStrokeRect(ctx, rect);
+    UIImage *retImage = UIGraphicsGetImageFromCurrentImageContext();
+    // free the context
+    UIGraphicsEndImageContext();
+    return retImage;
+    
+}
 
 
 //grab any valid image delivered from the sled

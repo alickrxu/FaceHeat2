@@ -10,6 +10,7 @@
 		864F902E1ABB825F0030913F /* FLIROneSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 864F902C1ABB825F0030913F /* FLIROneSDK.bundle */; };
 		864F902F1ABB825F0030913F /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864F902D1ABB825F0030913F /* FLIROneSDK.framework */; };
 		864F90341ABB827F0030913F /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 864F90321ABB827F0030913F /* BLE.m */; };
+		864F90371ABB85490030913F /* SuperThermal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 864F90361ABB85490030913F /* SuperThermal.mm */; };
 		CBB431101AB53C20005D7797 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB4310F1AB53C20005D7797 /* main.m */; };
 		CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431121AB53C20005D7797 /* AppDelegate.m */; };
 		CBB431161AB53C20005D7797 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431151AB53C20005D7797 /* ViewController.m */; };
@@ -39,6 +40,8 @@
 		864F90311ABB827F0030913F /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		864F90321ABB827F0030913F /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		864F90331ABB827F0030913F /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		864F90351ABB85490030913F /* SuperThermal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SuperThermal.hpp; sourceTree = "<group>"; };
+		864F90361ABB85490030913F /* SuperThermal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SuperThermal.mm; sourceTree = "<group>"; };
 		CBB4310A1AB53C20005D7797 /* FaceHeat2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceHeat2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB4310E1AB53C20005D7797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBB4310F1AB53C20005D7797 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				CBB431121AB53C20005D7797 /* AppDelegate.m */,
 				CBB431111AB53C20005D7797 /* AppDelegate.h */,
 				CBB431141AB53C20005D7797 /* ViewController.h */,
+				864F90351ABB85490030913F /* SuperThermal.hpp */,
+				864F90361ABB85490030913F /* SuperThermal.mm */,
 				CBB431151AB53C20005D7797 /* ViewController.m */,
 				CBB431171AB53C20005D7797 /* Main.storyboard */,
 				CBB4311A1AB53C20005D7797 /* Images.xcassets */,
@@ -326,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBB431161AB53C20005D7797 /* ViewController.m in Sources */,
+				864F90371ABB85490030913F /* SuperThermal.mm in Sources */,
 				CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */,
 				CBB431101AB53C20005D7797 /* main.m in Sources */,
 				864F90341ABB827F0030913F /* BLE.m in Sources */,

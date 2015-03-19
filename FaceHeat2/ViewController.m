@@ -98,11 +98,7 @@ int verticalRigBounds = 25;
     //disable locking of the screen
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
-    //UIImage *img = [UIImage imageNamed:@"face-map.jpg"];
-    //self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage:img] options:@{}];
-    //self.visualYCBView.image = img;
-    // self.thermalView.image = [self imageByDrawingCircleOnImage:img];
-    
+
     //setup bluetooth
     ble = [[BLE alloc] init];
     [ble controlSetup];
@@ -146,12 +142,9 @@ int verticalRigBounds = 25;
         //here is where we set the visual image
         self.visualYCbCrImage = [self imageByDrawingCircleOnImage:self.visualYCbCrImage];
         [self.visualYCBView setImage:self.visualYCbCrImage];
-        //rotate by 90 degrees to match landscape orientation
-//        self.visualYCBView.transform = CGAffineTransformMakeRotation(M_PI_2);
         
         //set thermalView
         [self.thermalView setImage:self.radiometricImage];
-//        self.thermalView.transform = CGAffineTransformMakeRotation(M_PI_2); //rotate thermal 90 degrees
         
         //final version won't need this, this is for testing
         if (self.connected)
@@ -179,50 +172,11 @@ int verticalRigBounds = 25;
         
         for (CIFaceFeature *faceFeature in self.faceFeatures){
             
-//            self.originLabel.text = [NSString stringWithFormat:@"face origin: %0.2f %0.2f", faceFeature.bounds.origin.x, faceFeature.bounds.origin.y];
+
             
             self.faceFeatureLabel.text = [NSString stringWithFormat:@"faceSize: %0.2f x %0.2f", faceFeature.bounds.size.height, faceFeature.bounds.size.width];
             
-//            self.rightEyeLabel.text = [NSString stringWithFormat:@"right eye: %0.2f %0.2f", faceFeature.rightEyePosition.x, faceFeature.rightEyePosition.y];
-            
-            
-        
-//            self.foreheadLabel.text = [NSString stringWithFormat:@"forehead temp: %@", self.tempPoints[@"forehead"]];
-            
-            
-            
-//            self.leftEyeLabel.text = [NSString stringWithFormat:@"left eye: %0.2f %0.2f", faceFeature.leftEyePosition.x, faceFeature.leftEyePosition.y];
-            
-//            self.mouthLabel.text = [NSString stringWithFormat:@"mouth: %0.2f %0.2f", faceFeature.mouthPosition.x, faceFeature.mouthPosition.y];
-            
-//            //for now, draw a box around eyes and mouth for both thermal and visual
-//            // Get the bounding rectangle of the face
-//            CGRect bounds = faceFeature.bounds;
-//            
-//            [[UIColor colorWithWhite:1.0 alpha:1.0] set];
-//            [UIBezierPath bezierPathWithRect:(bounds)];
-//            
-//            // Get the position of facial features
-//            if (faceFeature.hasLeftEyePosition) {
-//                CGPoint leftEyePosition = faceFeature.leftEyePosition;
-//                
-//                [[UIColor colorWithWhite:1.0 alpha:1.0] set];
-//                [UIBezierPath bezierPathWithRect:(CGRectMake(leftEyePosition.x - 10.0, leftEyePosition.y - 10.0, 20.0, 20.0))];
-//            }
-//            
-//            if (faceFeature.hasRightEyePosition) {
-//                CGPoint rightEyePosition = faceFeature.rightEyePosition;
-//                
-//                [[UIColor colorWithWhite:1.0 alpha:1.0] set];
-//                [UIBezierPath bezierPathWithRect:(CGRectMake(rightEyePosition.x - 10.0, rightEyePosition.y - 10.0, 20.0, 20.0))];
-//            }
-//            
-//            if (faceFeature.hasMouthPosition) {
-//                CGPoint mouthPosition = faceFeature.mouthPosition;
-//                
-//                [[UIColor colorWithWhite:1.0 alpha:1.0] set];
-//                [UIBezierPath bezierPathWithRect:(CGRectMake(mouthPosition.x - 10.0, mouthPosition.y - 10.0, 20.0, 20.0))];
-//            }
+
 
         }
         
@@ -702,49 +656,12 @@ int verticalRigBounds = 25;
  *
  */
 -(void) bleDidConnect {
-//    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-//    session.sessionPreset = AVCaptureSessionPresetPhoto;
-//    
-//    //Add device
-//    AVCaptureDevice *device =
-//    [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-//    
-//    //Input
-//    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-//    
-//    if (!input)
-//    {
-//        NSLog(@"No Input");
-//    }
-//    
-//    [session addInput:input];
-//    //Output
-//    self.output = [[AVCaptureVideoDataOutput alloc] init];
-//    [session addOutput:self.output];
-//    self.output.videoSettings = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
-//    
-//    
-//    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
-//    [_output setSampleBufferDelegate:self queue:queue];
-//    
-//    //Preview Layer
-//    _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-//    UIView *myView = self.view;
-//    _previewLayer.frame = CGRectMake(0, 0, myView.bounds.size.height, myView.bounds.size.width);
-//    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//    [self.view.layer addSublayer:_previewLayer];
-//    AVCaptureConnection *previewLayerConnection=self.previewLayer.connection;
-//    previewLayerConnection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+
     char init1[] = {'S', 0x02, 0x04};
     [self sendData: [NSData dataWithBytes:init1 length:3]];
     init1[1] = 0x03;
     [self sendData:[NSData dataWithBytes:init1 length:3]];
-//    char centerX[] = {'O', 0x02, currentAngle};
-//    
-//    [self sendData:[NSData dataWithBytes:centerX length:3]];
-//    //Start capture session
-//    [session startRunning];
-//    
+
 }
 
 - (void) sendData:(char *) bytes length:(int) length{
@@ -793,10 +710,6 @@ int verticalRigBounds = 25;
 }
 
 
-//// only support landscape orientation
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskPortrait;
-//}
+
 
 @end

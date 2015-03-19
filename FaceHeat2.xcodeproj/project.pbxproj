@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		864F902E1ABB825F0030913F /* FLIROneSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 864F902C1ABB825F0030913F /* FLIROneSDK.bundle */; };
+		864F902F1ABB825F0030913F /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864F902D1ABB825F0030913F /* FLIROneSDK.framework */; };
+		864F90341ABB827F0030913F /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 864F90321ABB827F0030913F /* BLE.m */; };
 		CBB431101AB53C20005D7797 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB4310F1AB53C20005D7797 /* main.m */; };
 		CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431121AB53C20005D7797 /* AppDelegate.m */; };
 		CBB431161AB53C20005D7797 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431151AB53C20005D7797 /* ViewController.m */; };
@@ -14,26 +17,10 @@
 		CBB4311B1AB53C20005D7797 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB4311A1AB53C20005D7797 /* Images.xcassets */; };
 		CBB4311E1AB53C20005D7797 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBB4311C1AB53C20005D7797 /* LaunchScreen.xib */; };
 		CBB4312A1AB53C20005D7797 /* FaceHeat2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431291AB53C20005D7797 /* FaceHeat2Tests.m */; };
-		CBB431361AB53CBD005D7797 /* FLIROneSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */; };
 		CBB431381AB53D1E005D7797 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431371AB53D1E005D7797 /* libstdc++.dylib */; };
 		CBB4313A1AB53D24005D7797 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431391AB53D24005D7797 /* AssetsLibrary.framework */; };
 		CBB4313C1AB53D2D005D7797 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */; };
 		CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313D1AB53D32005D7797 /* Foundation.framework */; };
-		CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */; };
-		CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */; };
-		CBD02EA01ABAB1440077B145 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */; };
-		CBD02EA11ABAB1440077B145 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */; };
-		CBD02EBC1ABAC1800077B145 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EA71ABAC1800077B145 /* NSImage+ANImageBitmapRep.m */; };
-		CBD02EBD1ABAC1800077B145 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EA91ABAC1800077B145 /* OSCommonImage.m */; };
-		CBD02EBE1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EAB1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m */; };
-		CBD02EBF1ABAC1800077B145 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EAE1ABAC1800077B145 /* CGContextCreator.m */; };
-		CBD02EC01ABAC1800077B145 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB01ABAC1800077B145 /* CGImageContainer.m */; };
-		CBD02EC11ABAC1800077B145 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB31ABAC1800077B145 /* BitmapContextManipulator.m */; };
-		CBD02EC21ABAC1800077B145 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB51ABAC1800077B145 /* BitmapCropManipulator.m */; };
-		CBD02EC31ABAC1800077B145 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB71ABAC1800077B145 /* BitmapDrawManipulator.m */; };
-		CBD02EC41ABAC1800077B145 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */; };
-		CBD02EC51ABAC1800077B145 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */; };
-		CBD02EC91ABAFEEB0077B145 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EC71ABAFEEB0077B145 /* BLE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +34,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		864F902C1ABB825F0030913F /* FLIROneSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FLIROneSDK.bundle; sourceTree = "<group>"; };
+		864F902D1ABB825F0030913F /* FLIROneSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FLIROneSDK.framework; sourceTree = "<group>"; };
+		864F90311ABB827F0030913F /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		864F90321ABB827F0030913F /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		864F90331ABB827F0030913F /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		CBB4310A1AB53C20005D7797 /* FaceHeat2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceHeat2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB4310E1AB53C20005D7797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBB4310F1AB53C20005D7797 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -60,18 +52,10 @@
 		CBB431231AB53C20005D7797 /* FaceHeat2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceHeat2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB431281AB53C20005D7797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBB431291AB53C20005D7797 /* FaceHeat2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceHeat2Tests.m; sourceTree = "<group>"; };
-		CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLIROneSDK.framework; path = ../../../Documents/FLIROneSDK/FLIROneSDK.framework; sourceTree = "<group>"; };
-		CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FLIROneSDK.bundle; path = ../../../Documents/FLIROneSDK/FLIROneSDK.bundle; sourceTree = "<group>"; };
 		CBB431371AB53D1E005D7797 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CBB431391AB53D24005D7797 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CBB4313D1AB53D32005D7797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+GeometryConversion.h"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.h"; sourceTree = "<group>"; };
-		CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+GeometryConversion.m"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.m"; sourceTree = "<group>"; };
-		CBD02E9C1ABAB1440077B145 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANImageBitmapRep.h; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/ANImageBitmapRep.h"; sourceTree = "<group>"; };
-		CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANImageBitmapRep.m; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/ANImageBitmapRep.m"; sourceTree = "<group>"; };
-		CBD02E9E1ABAB1440077B145 /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BitmapContextRep.h; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/BitmapContextRep.h"; sourceTree = "<group>"; };
-		CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BitmapContextRep.m; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/BitmapContextRep.m"; sourceTree = "<group>"; };
 		CBD02EA61ABAC1800077B145 /* NSImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
 		CBD02EA71ABAC1800077B145 /* NSImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
 		CBD02EA81ABAC1800077B145 /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
@@ -92,9 +76,6 @@
 		CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
 		CBD02EBA1ABAC1800077B145 /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
 		CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
-		CBD02EC61ABAFEEB0077B145 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLE.h"; sourceTree = "<group>"; };
-		CBD02EC71ABAFEEB0077B145 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE.m; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLE.m"; sourceTree = "<group>"; };
-		CBD02EC81ABAFEEB0077B145 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = "../../../../Downloads/iOS-master/BLEFramework/BLE/BLEDefines.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +83,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */,
 				CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */,
 				CBB4313C1AB53D2D005D7797 /* CoreGraphics.framework in Frameworks */,
 				CBB4313A1AB53D24005D7797 /* AssetsLibrary.framework in Frameworks */,
+				864F902F1ABB825F0030913F /* FLIROneSDK.framework in Frameworks */,
 				CBB431381AB53D1E005D7797 /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,15 +101,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		864F90301ABB826D0030913F /* ble */ = {
+			isa = PBXGroup;
+			children = (
+				864F90311ABB827F0030913F /* BLE.h */,
+				864F90321ABB827F0030913F /* BLE.m */,
+				864F90331ABB827F0030913F /* BLEDefines.h */,
+			);
+			name = ble;
+			sourceTree = "<group>";
+		};
 		CBB431011AB53C20005D7797 = {
 			isa = PBXGroup;
 			children = (
+				864F902C1ABB825F0030913F /* FLIROneSDK.bundle */,
+				864F902D1ABB825F0030913F /* FLIROneSDK.framework */,
 				CBB4313D1AB53D32005D7797 /* Foundation.framework */,
 				CBB4313B1AB53D2D005D7797 /* CoreGraphics.framework */,
 				CBB431391AB53D24005D7797 /* AssetsLibrary.framework */,
 				CBB431371AB53D1E005D7797 /* libstdc++.dylib */,
-				CBB431351AB53CBD005D7797 /* FLIROneSDK.bundle */,
-				CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */,
 				CBB4310C1AB53C20005D7797 /* FaceHeat2 */,
 				CBB431261AB53C20005D7797 /* FaceHeat2Tests */,
 				CBB4310B1AB53C20005D7797 /* Products */,
@@ -147,20 +138,12 @@
 		CBB4310C1AB53C20005D7797 /* FaceHeat2 */ = {
 			isa = PBXGroup;
 			children = (
-				CBB431111AB53C20005D7797 /* AppDelegate.h */,
-				CBD02E9C1ABAB1440077B145 /* ANImageBitmapRep.h */,
-				CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */,
-				CBD02E9E1ABAB1440077B145 /* BitmapContextRep.h */,
-				CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */,
-				CBD02EC61ABAFEEB0077B145 /* BLE.h */,
-				CBD02EC71ABAFEEB0077B145 /* BLE.m */,
-				CBD02EC81ABAFEEB0077B145 /* BLEDefines.h */,
-				CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */,
-				CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */,
+				864F90301ABB826D0030913F /* ble */,
 				CBD02EA51ABAC1800077B145 /* Compatibility */,
 				CBD02EAC1ABAC1800077B145 /* CoreGraphics */,
 				CBD02EB11ABAC1800077B145 /* Manipulators */,
 				CBB431121AB53C20005D7797 /* AppDelegate.m */,
+				CBB431111AB53C20005D7797 /* AppDelegate.h */,
 				CBB431141AB53C20005D7797 /* ViewController.h */,
 				CBB431151AB53C20005D7797 /* ViewController.m */,
 				CBB431171AB53C20005D7797 /* Main.storyboard */,
@@ -321,9 +304,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBB431361AB53CBD005D7797 /* FLIROneSDK.bundle in Resources */,
 				CBB431191AB53C20005D7797 /* Main.storyboard in Resources */,
 				CBB4311E1AB53C20005D7797 /* LaunchScreen.xib in Resources */,
+				864F902E1ABB825F0030913F /* FLIROneSDK.bundle in Resources */,
 				CBB4311B1AB53C20005D7797 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,23 +325,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBD02EA11ABAB1440077B145 /* BitmapContextRep.m in Sources */,
-				CBD02EBE1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m in Sources */,
-				CBD02EBC1ABAC1800077B145 /* NSImage+ANImageBitmapRep.m in Sources */,
-				CBD02EBF1ABAC1800077B145 /* CGContextCreator.m in Sources */,
-				CBD02EC91ABAFEEB0077B145 /* BLE.m in Sources */,
-				CBD02EC01ABAC1800077B145 /* CGImageContainer.m in Sources */,
-				CBD02EC11ABAC1800077B145 /* BitmapContextManipulator.m in Sources */,
-				CBD02EC21ABAC1800077B145 /* BitmapCropManipulator.m in Sources */,
-				CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */,
-				CBD02EBD1ABAC1800077B145 /* OSCommonImage.m in Sources */,
 				CBB431161AB53C20005D7797 /* ViewController.m in Sources */,
-				CBD02EA01ABAB1440077B145 /* ANImageBitmapRep.m in Sources */,
-				CBD02EC31ABAC1800077B145 /* BitmapDrawManipulator.m in Sources */,
 				CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */,
 				CBB431101AB53C20005D7797 /* main.m in Sources */,
-				CBD02EC51ABAC1800077B145 /* BitmapScaleManipulator.m in Sources */,
-				CBD02EC41ABAC1800077B145 /* BitmapRotationManipulator.m in Sources */,
+				864F90341ABB827F0030913F /* BLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,10 +450,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/alickxu/Documents/FLIROneSDK,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = FaceHeat2/Info.plist;
@@ -501,10 +473,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/alickxu/Documents/FLIROneSDK,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = FaceHeat2/Info.plist;

@@ -67,7 +67,7 @@
     self.visualYCBView.contentMode = UIViewContentModeScaleAspectFit;
     self.thermalView.contentMode = UIViewContentModeScaleAspectFit;
     
-    self.imgOption = @{CIDetectorImageOrientation: @1}; //kCBImagePropertyOrientation
+    self.imgOption = @{CIDetectorImageOrientation: @3}; //kCBImagePropertyOrientation
     
     NSDictionary *detectoroptions = @{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorTracking: @YES};
     self.facedetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectoroptions];
@@ -143,7 +143,7 @@
                 [self performTemperatureCalculations];
             }
         }
-        self.visualSizeLabel.text = [NSString stringWithFormat:@"visViewSize: %0.2f x %0.2f", self.visualYCBView.image.size.width, self.visualYCBView.image.size.height];
+        self.visualSizeLabel.text = [NSString stringWithFormat:@"visViewSize: %@ x %@", self.tempPoints[@"left_cheek"], self.tempPoints[@"right_cheek"]];
         //[NSString stringWithFormat:@"visImgSize: %0.2f x %0.2f",self.visualSize.width,self.visualSize.height];
         
         self.frameCountLabel.text = [NSString stringWithFormat:@"Count: %ld, %0.2f", (long)self.frameCount, self.fps];
@@ -238,9 +238,11 @@
         //background thread
         
         self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage: self.visualYCbCrImage] options:self.imgOption];
+        
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //main thread
             self.visualYCbCrImage = [FLIROneSDKUIImage imageWithFormat:FLIROneSDKImageOptionsVisualYCbCr888Image andData:visualYCbCr888Image andSize:size];
+            self.visualYCbCrImage.imageOrientation;
 //            NSLog(@"%ld", self.visualYCbCrImage.imageOrientation);
         });
         
@@ -350,22 +352,22 @@
     
     if(hasRightCheek) {
         //visual coordinates
-        CGFloat rightX = faceFeature.rightEyePosition.x;
+        CGFloat rightX = faceFeature.rightEyePosition.x + 10;
         CGFloat rightY = (faceFeature.rightEyePosition.y + faceFeature.mouthPosition.y)/2;
         
         //thermal coordinates
-        rightTX = [self resolutionTranslateX:rightX];
-        rightTY = [self resolutionTranslateY:rightY];
+        rightTX = floor([self resolutionTranslateX:rightX]);
+        rightTY = floor([self resolutionTranslateY:rightY]);
     }
     
     if(hasLeftCheek) {
         //visual coordinates
-        CGFloat leftX = faceFeature.leftEyePosition.x;
+        CGFloat leftX = faceFeature.leftEyePosition.x - 10;
         CGFloat leftY = (faceFeature.leftEyePosition.y + faceFeature.mouthPosition.y)/2;
         
         //thermal
-        leftTX = [self resolutionTranslateX:leftX];
-        leftTY = [self resolutionTranslateY:leftY];
+        leftTX = floor([self resolutionTranslateX:leftX]);
+        leftTY = floor([self resolutionTranslateY:leftY]);
         
     }
     

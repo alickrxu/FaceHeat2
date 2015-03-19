@@ -12,7 +12,6 @@
 #import <FLIROneSDK/FLIROneSDK.h>
 #import <tgmath.h>
 
-#import "UIImageView+GeometryConversion.h"
 
 @interface ViewController : UIViewController <FLIROneSDKImageReceiverDelegate, FLIROneSDKStreamManagerDelegate, FLIROneSDKVideoRendererDelegate, FLIROneSDKImageEditorDelegate>
 

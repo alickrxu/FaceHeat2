@@ -67,14 +67,14 @@
     self.visualYCBView.contentMode = UIViewContentModeScaleAspectFit;
     self.thermalView.contentMode = UIViewContentModeScaleAspectFit;
     
-    self.imgOption = @{CIDetectorImageOrientation: @3}; //kCBImagePropertyOrientation
+    self.imgOption = @{};//@{CIDetectorImageOrientation: @3}; //kCBImagePropertyOrientation
     
     NSDictionary *detectoroptions = @{ CIDetectorAccuracy : CIDetectorAccuracyHigh, CIDetectorTracking: @YES};
     self.facedetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectoroptions];
     
     // add view controller to FLIR stream manager delegates
-    [[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
-    [[FLIROneSDKStreamManager sharedInstance] setImageOptions: self.options];
+[[FLIROneSDKStreamManager sharedInstance] addDelegate:self];
+   [[FLIROneSDKStreamManager sharedInstance] setImageOptions: self.options];
     self.faceFeatures = @[];
     
     //initialize dictionaries
@@ -85,6 +85,11 @@
     
     //disable locking of the screen
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    //UIImage *img = [UIImage imageNamed:@"face-map.jpg"];
+    //self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage:img] options:@{}];
+    //self.visualYCBView.image = img;
+   // self.thermalView.image = [self imageByDrawingCircleOnImage:img];
+    
     //update UI here
 }
 
@@ -236,8 +241,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //background thread
-        
-        self.faceFeatures = [self.facedetector featuresInImage:[[CIImage alloc] initWithImage: self.visualYCbCrImage] options:self.imgOption];
+        self.faceFeatures = [self.facedetector featuresInImage:[[CIImage  alloc] initWithImage:self.visualYCbCrImage] options:self.imgOption];
         
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //main thread
@@ -439,6 +443,9 @@
     UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
     AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
 
+    CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
+    CGAffineTransform transformToUIKit = CGAffineTransformTranslate(transform, 0, -image.size.height);
+
     if (self.faceFeatures.count == 0)
         return image;
     
@@ -461,8 +468,8 @@
     if(faceFeature.hasLeftEyePosition){
         // set stroking color and draw circle
         [[UIColor redColor] setStroke];
-        
-        CGRect leftEyeRect =  CGRectMake(faceFeature.leftEyePosition.x-faceWidth*0.15, faceFeature.leftEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        CGPoint p = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
+        CGRect leftEyeRect =  CGRectMake(p.x-faceWidth*0.15, p.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
         leftEyeRect = CGRectInset(leftEyeRect, 0, 0);
         CGContextStrokeRect(ctx, leftEyeRect);
     }
@@ -470,16 +477,18 @@
     if(faceFeature.hasRightEyePosition){
         // set stroking color and draw circle
         [[UIColor blueColor] setStroke];
-        
-        CGRect rightEyeRect =  CGRectMake(faceFeature.rightEyePosition.x-faceWidth*0.15, faceFeature.rightEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        CGPoint p = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
+        CGRect rightEyeRect =  CGRectMake(p.x-faceWidth*0.15, p.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
         rightEyeRect = CGRectInset(rightEyeRect, 0, 0);
         CGContextStrokeRect(ctx, rightEyeRect);
     }
     if (faceFeature.hasMouthPosition){
         // set stroking color and draw circle
         [[UIColor greenColor] setStroke];
+        CGPoint p = CGPointApplyAffineTransform(faceFeature.mouthPosition, transformToUIKit);
         
-        CGRect mouthRect = CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2, faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4);
+        CGRect mouthRect = CGRectMake(p.x-faceWidth*0.2, p.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4);
+        
         mouthRect = CGRectInset(mouthRect, 0, 0);
         CGContextStrokeRect(ctx, mouthRect);
     }
@@ -491,6 +500,7 @@
                                    faceWidth,
                                    faceHeight);
     
+    facerect = CGRectApplyAffineTransform(facerect, transformToUIKit);
     
     facerect = CGRectInset(facerect, 0, 0);
     
@@ -499,10 +509,8 @@
     
     // make image out of bitmap context
     UIImage *retImage = UIGraphicsGetImageFromCurrentImageContext();
-    
     // free the context
     UIGraphicsEndImageContext();
-    
     return retImage;
 }
 
@@ -520,10 +528,10 @@
     return image;
 }
 
-// only support landscape orientation
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
+//// only support landscape orientation
+//- (NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 @end

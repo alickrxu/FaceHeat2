@@ -45,6 +45,7 @@
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 - (IBAction)scan:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *currentAngleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentTiltLabel;
 
 @end
 

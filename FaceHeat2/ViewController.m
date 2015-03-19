@@ -57,8 +57,9 @@
 @implementation ViewController
 @synthesize ble;
 int currentAngle = 125; //current horizontal angle of the rig
+int currentTilt = 125; //current vertical angle
 int horizontalRigBounds = 20; //boundaries of the looking box for the rig to move. in context of thermal camera
-int verticalRigBounds = 100;
+int verticalRigBounds = 25;
 
 
 - (void)viewDidLoad {
@@ -163,6 +164,7 @@ int verticalRigBounds = 100;
             self.detectLabel.text = @"no face yet";
         
         self.currentAngleLabel.text = [NSString stringWithFormat:@"currentAngle: %d", currentAngle];
+        self.currentTiltLabel.text = [NSString stringWithFormat:@"currentTilt: %d", currentTilt];
         
         
         if(self.thermalData && self.options & FLIROneSDKImageOptionsThermalRadiometricKelvinImage) {
@@ -360,6 +362,7 @@ int verticalRigBounds = 100;
     BOOL hasLeftCheek = faceFeature.hasLeftEyePosition && faceFeature.hasMouthPosition;
     
     //first transform the visual coordinates
+    //this is where we rely on visual facial detection for thermal facial detection
     CGPoint leftEye = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
     CGPoint rightEye = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
     CGPoint mouth = CGPointApplyAffineTransform(faceFeature.mouthPosition, transformToUIKit);
@@ -508,20 +511,22 @@ int verticalRigBounds = 100;
     self.tempPoints[@"right_cheek"] = [NSNumber numberWithFloat:rightCheekTotal];
     self.foreheadCheekPositions[@"right_cheek"] = [NSValue valueWithCGPoint:CGPointMake(rightCheekRect.origin.x, rightCheekRect.origin.y)];
     
+    
+    
     //FACE DETECTION
     //if forehead is greater than the left and right cheeks by at least two degrees
     if(foreheadTotal - (leftCheekTotal + rightCheekTotal)/2 >= 2) {
         self.faceHeatDetected = YES;
-        // MOVE THE RIG
+        // MOVE THE RIG IF FACE DETECTION
         //horizontal movement: track the forehead x
         CGFloat midForehead = CGRectGetMidX(foreheadRect);
         
-        if(midForehead > horizontalRigBounds && midForehead < self.visualSize.width - horizontalRigBounds) {
+        if(midForehead > horizontalRigBounds && midForehead < self.thermalSize.width - horizontalRigBounds) {
             if(midForehead > self.thermalSize.width/2) {
-                currentAngle += 5;
+                currentAngle -= 5;
             }
             else if(midForehead < self.thermalSize.width/2) {
-                currentAngle -= 5;
+                currentAngle += 5;
             }
             if (currentAngle > 255)
                 currentAngle = 255;
@@ -529,6 +534,23 @@ int verticalRigBounds = 100;
                 currentAngle = 0;
         }
         [self moveRigLeftOrRight:currentAngle];
+        
+        //vertical movement: track the cheek y
+        CGFloat midCheek = CGRectGetMidY(leftCheekRect);
+        
+        if(midCheek > verticalRigBounds && midCheek < self.thermalSize.height - verticalRigBounds) {
+            if(midCheek > self.thermalSize.height/2) {
+                currentTilt -= 5;
+            }
+            else if(midCheek < self.thermalSize.height/2) {
+                currentTilt += 5;
+            }
+            if(currentTilt > 120)
+                currentTilt = 120;
+            else if(currentTilt < 60)
+                currentTilt = 60;
+        }
+        [self moveRigUpOrDown:currentTilt];
     }
     else {
         self.faceHeatDetected = NO;
@@ -715,6 +737,8 @@ int verticalRigBounds = 100;
 //    previewLayerConnection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
     char init1[] = {'S', 0x02, 0x04};
     [self sendData: [NSData dataWithBytes:init1 length:3]];
+    init1[1] = 0x03;
+    [self sendData:[NSData dataWithBytes:init1 length:3]];
 //    char centerX[] = {'O', 0x02, currentAngle};
 //    
 //    [self sendData:[NSData dataWithBytes:centerX length:3]];
@@ -758,21 +782,12 @@ int verticalRigBounds = 100;
 //0x03 means move rig vertically
 //0x02 means move rig horizontally
 -(void) moveRigUpOrDown:(int)angle {
-    if (angle > 255)
-        angle = 255;
-    else if (angle < 0)
-        angle = 0;
 
     char data[] = {'O', 0x03, angle};
     [self sendData:[NSData dataWithBytes:data length:3]];
 }
 
 -(void) moveRigLeftOrRight:(int)angle {
-    if (angle > 255)
-        angle = 255;
-    else if (angle < 0)
-        angle = 0;
-    
     char data[] = {'O', 0x02, angle};
     [self sendData:[NSData dataWithBytes:data length:3]];
 }

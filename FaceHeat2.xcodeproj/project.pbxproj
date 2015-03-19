@@ -21,6 +21,18 @@
 		CBB4313E1AB53D32005D7797 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB4313D1AB53D32005D7797 /* Foundation.framework */; };
 		CBB4313F1AB54024005D7797 /* FLIROneSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB431331AB53CAC005D7797 /* FLIROneSDK.framework */; };
 		CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */; };
+		CBD02EA01ABAB1440077B145 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */; };
+		CBD02EA11ABAB1440077B145 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */; };
+		CBD02EBC1ABAC1800077B145 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EA71ABAC1800077B145 /* NSImage+ANImageBitmapRep.m */; };
+		CBD02EBD1ABAC1800077B145 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EA91ABAC1800077B145 /* OSCommonImage.m */; };
+		CBD02EBE1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EAB1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m */; };
+		CBD02EBF1ABAC1800077B145 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EAE1ABAC1800077B145 /* CGContextCreator.m */; };
+		CBD02EC01ABAC1800077B145 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB01ABAC1800077B145 /* CGImageContainer.m */; };
+		CBD02EC11ABAC1800077B145 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB31ABAC1800077B145 /* BitmapContextManipulator.m */; };
+		CBD02EC21ABAC1800077B145 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB51ABAC1800077B145 /* BitmapCropManipulator.m */; };
+		CBD02EC31ABAC1800077B145 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB71ABAC1800077B145 /* BitmapDrawManipulator.m */; };
+		CBD02EC41ABAC1800077B145 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */; };
+		CBD02EC51ABAC1800077B145 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +67,30 @@
 		CBB4313D1AB53D32005D7797 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+GeometryConversion.h"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.h"; sourceTree = "<group>"; };
 		CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+GeometryConversion.m"; path = "../../../../Downloads/UIImageView-GeometryConversion-master/UIImageView+GeometryConversion.m"; sourceTree = "<group>"; };
+		CBD02E9C1ABAB1440077B145 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANImageBitmapRep.h; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANImageBitmapRep.m; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		CBD02E9E1ABAB1440077B145 /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BitmapContextRep.h; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/BitmapContextRep.h"; sourceTree = "<group>"; };
+		CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BitmapContextRep.m; path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/BitmapContextRep.m"; sourceTree = "<group>"; };
+		CBD02EA61ABAC1800077B145 /* NSImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		CBD02EA71ABAC1800077B145 /* NSImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		CBD02EA81ABAC1800077B145 /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
+		CBD02EA91ABAC1800077B145 /* OSCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCommonImage.m; sourceTree = "<group>"; };
+		CBD02EAA1ABAC1800077B145 /* UIImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		CBD02EAB1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		CBD02EAD1ABAC1800077B145 /* CGContextCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGContextCreator.h; sourceTree = "<group>"; };
+		CBD02EAE1ABAC1800077B145 /* CGContextCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGContextCreator.m; sourceTree = "<group>"; };
+		CBD02EAF1ABAC1800077B145 /* CGImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGImageContainer.h; sourceTree = "<group>"; };
+		CBD02EB01ABAC1800077B145 /* CGImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGImageContainer.m; sourceTree = "<group>"; };
+		CBD02EB21ABAC1800077B145 /* BitmapContextManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextManipulator.h; sourceTree = "<group>"; };
+		CBD02EB31ABAC1800077B145 /* BitmapContextManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextManipulator.m; sourceTree = "<group>"; };
+		CBD02EB41ABAC1800077B145 /* BitmapCropManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCropManipulator.h; sourceTree = "<group>"; };
+		CBD02EB51ABAC1800077B145 /* BitmapCropManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapCropManipulator.m; sourceTree = "<group>"; };
+		CBD02EB61ABAC1800077B145 /* BitmapDrawManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapDrawManipulator.h; sourceTree = "<group>"; };
+		CBD02EB71ABAC1800077B145 /* BitmapDrawManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapDrawManipulator.m; sourceTree = "<group>"; };
+		CBD02EB81ABAC1800077B145 /* BitmapRotationManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapRotationManipulator.h; sourceTree = "<group>"; };
+		CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
+		CBD02EBA1ABAC1800077B145 /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
+		CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +144,15 @@
 			isa = PBXGroup;
 			children = (
 				CBB431111AB53C20005D7797 /* AppDelegate.h */,
+				CBD02E9C1ABAB1440077B145 /* ANImageBitmapRep.h */,
+				CBD02E9D1ABAB1440077B145 /* ANImageBitmapRep.m */,
+				CBD02E9E1ABAB1440077B145 /* BitmapContextRep.h */,
+				CBD02E9F1ABAB1440077B145 /* BitmapContextRep.m */,
 				CBB431401AB6569A005D7797 /* UIImageView+GeometryConversion.h */,
 				CBB431411AB6569A005D7797 /* UIImageView+GeometryConversion.m */,
+				CBD02EA51ABAC1800077B145 /* Compatibility */,
+				CBD02EAC1ABAC1800077B145 /* CoreGraphics */,
+				CBD02EB11ABAC1800077B145 /* Manipulators */,
 				CBB431121AB53C20005D7797 /* AppDelegate.m */,
 				CBB431141AB53C20005D7797 /* ViewController.h */,
 				CBB431151AB53C20005D7797 /* ViewController.m */,
@@ -145,6 +188,50 @@
 				CBB431281AB53C20005D7797 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CBD02EA51ABAC1800077B145 /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				CBD02EA61ABAC1800077B145 /* NSImage+ANImageBitmapRep.h */,
+				CBD02EA71ABAC1800077B145 /* NSImage+ANImageBitmapRep.m */,
+				CBD02EA81ABAC1800077B145 /* OSCommonImage.h */,
+				CBD02EA91ABAC1800077B145 /* OSCommonImage.m */,
+				CBD02EAA1ABAC1800077B145 /* UIImage+ANImageBitmapRep.h */,
+				CBD02EAB1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m */,
+			);
+			name = Compatibility;
+			path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/Compatibility";
+			sourceTree = "<group>";
+		};
+		CBD02EAC1ABAC1800077B145 /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				CBD02EAD1ABAC1800077B145 /* CGContextCreator.h */,
+				CBD02EAE1ABAC1800077B145 /* CGContextCreator.m */,
+				CBD02EAF1ABAC1800077B145 /* CGImageContainer.h */,
+				CBD02EB01ABAC1800077B145 /* CGImageContainer.m */,
+			);
+			name = CoreGraphics;
+			path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/CoreGraphics";
+			sourceTree = "<group>";
+		};
+		CBD02EB11ABAC1800077B145 /* Manipulators */ = {
+			isa = PBXGroup;
+			children = (
+				CBD02EB21ABAC1800077B145 /* BitmapContextManipulator.h */,
+				CBD02EB31ABAC1800077B145 /* BitmapContextManipulator.m */,
+				CBD02EB41ABAC1800077B145 /* BitmapCropManipulator.h */,
+				CBD02EB51ABAC1800077B145 /* BitmapCropManipulator.m */,
+				CBD02EB61ABAC1800077B145 /* BitmapDrawManipulator.h */,
+				CBD02EB71ABAC1800077B145 /* BitmapDrawManipulator.m */,
+				CBD02EB81ABAC1800077B145 /* BitmapRotationManipulator.h */,
+				CBD02EB91ABAC1800077B145 /* BitmapRotationManipulator.m */,
+				CBD02EBA1ABAC1800077B145 /* BitmapScaleManipulator.h */,
+				CBD02EBB1ABAC1800077B145 /* BitmapScaleManipulator.m */,
+			);
+			name = Manipulators;
+			path = "../../../../Downloads/ANImageBitmapRep-master/ANImageBitmapRep/Manipulators";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,10 +335,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD02EA11ABAB1440077B145 /* BitmapContextRep.m in Sources */,
+				CBD02EBE1ABAC1800077B145 /* UIImage+ANImageBitmapRep.m in Sources */,
+				CBD02EBC1ABAC1800077B145 /* NSImage+ANImageBitmapRep.m in Sources */,
+				CBD02EBF1ABAC1800077B145 /* CGContextCreator.m in Sources */,
+				CBD02EC01ABAC1800077B145 /* CGImageContainer.m in Sources */,
+				CBD02EC11ABAC1800077B145 /* BitmapContextManipulator.m in Sources */,
+				CBD02EC21ABAC1800077B145 /* BitmapCropManipulator.m in Sources */,
 				CBB431421AB6569B005D7797 /* UIImageView+GeometryConversion.m in Sources */,
+				CBD02EBD1ABAC1800077B145 /* OSCommonImage.m in Sources */,
 				CBB431161AB53C20005D7797 /* ViewController.m in Sources */,
+				CBD02EA01ABAB1440077B145 /* ANImageBitmapRep.m in Sources */,
+				CBD02EC31ABAC1800077B145 /* BitmapDrawManipulator.m in Sources */,
 				CBB431131AB53C20005D7797 /* AppDelegate.m in Sources */,
 				CBB431101AB53C20005D7797 /* main.m in Sources */,
+				CBD02EC51ABAC1800077B145 /* BitmapScaleManipulator.m in Sources */,
+				CBD02EC41ABAC1800077B145 /* BitmapRotationManipulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +563,7 @@
 				CBB4312F1AB53C20005D7797 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CBB431301AB53C20005D7797 /* Build configuration list for PBXNativeTarget "FaceHeat2Tests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +572,7 @@
 				CBB431321AB53C20005D7797 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -48,6 +48,8 @@
 
 @property (nonatomic) BOOL foreheadSet;
 
+@property (nonatomic) BOOL faceHeatDetected;
+
 @end
 
 @implementation ViewController
@@ -79,10 +81,13 @@
     
     //initialize dictionaries
     self.tempPoints = [NSMutableDictionary dictionary];
+    self.tempPoints[@"left_cheek"] = @69;
+    self.tempPoints[@"forehead"] = @69;
+    self.tempPoints[@"right_cheek"] = @69;
     self.foreheadCheekPositions = [NSMutableDictionary dictionary];
     
     self.foreheadSet = NO;
-    
+    self.faceHeatDetected = NO;
     //disable locking of the screen
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     //UIImage *img = [UIImage imageNamed:@"face-map.jpg"];
@@ -139,8 +144,10 @@
             self.connectionLabel.text = @"connected";
         else
             self.connectionLabel.text = @"disconnected";
-        if (self.foreheadSet)
-            self.detectLabel.text = @"forehead detected";
+        if (self.faceHeatDetected)
+            self.detectLabel.text = @"face detected!!";
+        else
+            self.detectLabel.text = @"no face yet";
         
         
         if(self.thermalData && self.options & FLIROneSDKImageOptionsThermalRadiometricKelvinImage) {
@@ -148,18 +155,18 @@
                 [self performTemperatureCalculations];
             }
         }
-        self.visualSizeLabel.text = [NSString stringWithFormat:@"visViewSize: %@ x %@", self.tempPoints[@"left_cheek"], self.tempPoints[@"right_cheek"]];
+        self.visualSizeLabel.text = [NSString stringWithFormat:@"cheek temps: %@ , %@", self.tempPoints[@"left_cheek"], self.tempPoints[@"right_cheek"]];
         //[NSString stringWithFormat:@"visImgSize: %0.2f x %0.2f",self.visualSize.width,self.visualSize.height];
         
         self.frameCountLabel.text = [NSString stringWithFormat:@"Count: %ld, %0.2f", (long)self.frameCount, self.fps];
         
         for (CIFaceFeature *faceFeature in self.faceFeatures){
             
-            self.originLabel.text = [NSString stringWithFormat:@"face origin: %0.2f %0.2f", faceFeature.bounds.origin.x, faceFeature.bounds.origin.y];
+//            self.originLabel.text = [NSString stringWithFormat:@"face origin: %0.2f %0.2f", faceFeature.bounds.origin.x, faceFeature.bounds.origin.y];
             
             self.faceFeatureLabel.text = [NSString stringWithFormat:@"faceSize: %0.2f x %0.2f", faceFeature.bounds.size.height, faceFeature.bounds.size.width];
             
-            self.rightEyeLabel.text = [NSString stringWithFormat:@"right eye: %0.2f %0.2f", faceFeature.rightEyePosition.x, faceFeature.rightEyePosition.y];
+//            self.rightEyeLabel.text = [NSString stringWithFormat:@"right eye: %0.2f %0.2f", faceFeature.rightEyePosition.x, faceFeature.rightEyePosition.y];
             
             
         
@@ -167,9 +174,9 @@
             
             
             
-            self.leftEyeLabel.text = [NSString stringWithFormat:@"left eye: %0.2f %0.2f", faceFeature.leftEyePosition.x, faceFeature.leftEyePosition.y];
+//            self.leftEyeLabel.text = [NSString stringWithFormat:@"left eye: %0.2f %0.2f", faceFeature.leftEyePosition.x, faceFeature.leftEyePosition.y];
             
-            self.mouthLabel.text = [NSString stringWithFormat:@"mouth: %0.2f %0.2f", faceFeature.mouthPosition.x, faceFeature.mouthPosition.y];
+//            self.mouthLabel.text = [NSString stringWithFormat:@"mouth: %0.2f %0.2f", faceFeature.mouthPosition.x, faceFeature.mouthPosition.y];
             
 //            //for now, draw a box around eyes and mouth for both thermal and visual
 //            // Get the bounding rectangle of the face
@@ -297,20 +304,26 @@
 // [10] [11] ...
 //
 // sets tempPoints and foreheadCheekPositions
+// 1st of 3 metrics:
+// 1: get temperature from forehead and cheeks. compare temperatures from forehead and cheeks - if they differ, then we have a face. Needs eyeposition
 - (void) performTemperatureCalculations {
+    
+    CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
+    CGAffineTransform transformToUIKit = CGAffineTransformTranslate(transform, 0, -self.visualYCbCrImage.size.height);
+
     //where the face features are located
     if (self.faceFeatures.count == 0)
         return;
     CIFaceFeature* faceFeature = self.faceFeatures[0];
     CGFloat faceWidth = faceFeature.bounds.size.width;
     CGFloat faceHeight = faceFeature.bounds.size.height;
+    
+    CGFloat faceThermalWidth = faceWidth/self.visualSize.width * self.thermalSize.width;
+    CGFloat faceThermalHeight = faceHeight/self.visualSize.height * self.thermalSize.height;
 
-    //
     // coordinates for forehead and cheeks
-    //
     CGFloat foreTX = -69; //forehead x point
     CGFloat foreTY = -69; //forehead y
-    CGPoint foreT;
     
     CGFloat rightTX = -69;
     CGFloat rightTY = -69;
@@ -325,55 +338,73 @@
     //left cheek needs left eye and mouth
     BOOL hasLeftCheek = faceFeature.hasLeftEyePosition && faceFeature.hasMouthPosition;
     
+    //first transform the visual coordinates
+    CGPoint leftEye = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
+    CGPoint rightEye = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
+    CGPoint mouth = CGPointApplyAffineTransform(faceFeature.mouthPosition, transformToUIKit);
+    CGPoint origin = CGPointApplyAffineTransform(faceFeature.bounds.origin, transformToUIKit);
+    
+    self.originLabel.text = [NSString stringWithFormat:@"face origin: %0.2f %0.2f", origin.x, origin.y];
+
+    //store all of the temperature points in the rectangles, used to get average temperature
+    CGRect foreheadRect;
+    CGRect leftCheekRect;
+    CGRect rightCheekRect;
+    NSMutableArray *foreheadTemps = [NSMutableArray array];
+    NSMutableArray *rightCheekTemps = [NSMutableArray array];
+    NSMutableArray *leftCheekTemps = [NSMutableArray array];
+
+    
     if(hasForehead) {
         //visual coordinates
-        CGPoint foreV = CGPointMake((faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2, ((faceFeature.bounds.origin.y) + fminf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2);
+        CGPoint foreV = CGPointMake((leftEye.x + leftEye.x)/2, ((origin.y) - faceFeature.bounds.size.height + fminf(rightEye.y, leftEye.y))/2);
         foreTX = [self resolutionTranslateX:foreV.x];
         foreTX = floorf(foreTX);
         foreTY = [self resolutionTranslateY:foreV.y];
         foreTY = floorf(foreTY);
         
-//        foreT = [self.thermalView convertPoint:foreConvert fromView:self.visualYCBView];
-//        CGFloat foreX = (faceFeature.leftEyePosition.x + faceFeature.rightEyePosition.x)/2;
-//        CGFloat foreY = ((faceHeight+faceFeature.bounds.origin.y) + fmaxf(faceFeature.rightEyePosition.y, faceFeature.leftEyePosition.y))/2;
+        //read a box of points and get the average of the temperatures
+        foreheadRect = CGRectStandardize(CGRectMake(foreTX - faceThermalWidth*0.1, foreTY - faceThermalWidth*0.1, faceThermalWidth*0.2, faceThermalWidth*0.2));
+
         
         self.foreXLabel.text = [NSString stringWithFormat:@"foreV: %0.2f, %0.2f", foreV.x, foreV.y];
-        //thermal coordinates
-//        foreTX = [self resolutionTranslateX:foreX];
-        
-        
-        //foreT = [self.thermalView convertPoint:CGPointMake(foreX, foreY) fromView:self.visualYCBView];
         self.foreTXLabel.text = [NSString stringWithFormat:@"foreT: %0.2f, %0.2f", foreTX, foreTY];
-        
-        
-//        foreTX = floorf(foreTX);
-//        if(foreTX != -69) {
-//            self.foreTXLabel.text = [NSString stringWithFormat:@"foreTX: %0.2f", foreTX];
-//        }
-//        foreTY = [self resolutionTranslateY:foreY];
-//        foreTY = floorf(foreTY);
-    }
-    
-    if(hasRightCheek) {
-        //visual coordinates
-        CGFloat rightX = faceFeature.rightEyePosition.x + 10;
-        CGFloat rightY = (faceFeature.rightEyePosition.y + faceFeature.mouthPosition.y)/2;
-        
-        //thermal coordinates
-        rightTX = floor([self resolutionTranslateX:rightX]);
-        rightTY = floor([self resolutionTranslateY:rightY]);
     }
     
     if(hasLeftCheek) {
         //visual coordinates
-        CGFloat leftX = faceFeature.leftEyePosition.x - 10;
-        CGFloat leftY = (faceFeature.leftEyePosition.y + faceFeature.mouthPosition.y)/2;
+        CGFloat leftX = leftEye.x - 25;
+        CGFloat leftY = (leftEye.y + mouth.y)/2;
         
         //thermal
         leftTX = floor([self resolutionTranslateX:leftX]);
         leftTY = floor([self resolutionTranslateY:leftY]);
         
+        leftCheekRect = CGRectStandardize(CGRectMake(leftTX - faceThermalWidth*0.1, leftTY - faceThermalHeight*0.1, faceThermalWidth*0.1, faceThermalHeight*0.2));
+        
+        self.leftEyeLabel.text = [NSString stringWithFormat:@"leftTeye: %0.2f, %0.2f", leftTX, leftTY];
     }
+    
+    if(hasRightCheek) {
+        //visual coordinates
+        CGFloat rightX = rightEye.x + 25;
+        CGFloat rightY = (rightEye.y + mouth.y)/2;
+        
+        //thermal coordinates
+        rightTX = floor([self resolutionTranslateX:rightX]);
+        rightTY = floor([self resolutionTranslateY:rightY]);
+        
+        rightCheekRect = CGRectStandardize(CGRectMake(rightTX, rightTY - faceThermalHeight*0.1, faceThermalWidth*0.1, faceThermalHeight*0.2));
+        
+        self.rightEyeLabel.text = [NSString stringWithFormat:@"rightTeye: %0.2f, %0.2f", rightTX, rightTY];
+    }
+    
+    
+    
+    CGFloat mouthTX = floor([self resolutionTranslateX:mouth.x]);
+    CGFloat mouthTY = floor([self resolutionTranslateY:mouth.y]);
+    self.mouthLabel.text = [NSString stringWithFormat:@"mouthT: %0.2f, %0.2f", mouthTX, mouthTY];
+    
     
     //grab a two-byte pointer to the first value in the thermalData array, which is a pointer to pixel (0,0)
     uint16_t *tempData = (uint16_t*)[self.thermalData bytes];
@@ -388,8 +419,9 @@
     CGFloat xCoord; //x coord of thermal data
     CGFloat yCoord; //y coord of thermal data
     
-    //TODO: since we know where the points are, do we need to iterate over all pixels? I think we can get away
-    //with just reading the 3 specific points 
+
+    
+
     for(int i = 0; i < totalPixels; i++) {
         degreesKelvin = tempData[i] / 100.0;
         xCoord = (i % (int)self.thermalSize.width);
@@ -397,33 +429,72 @@
         yCoord = (i / self.thermalSize.height);
         yCoord = floorf(yCoord);
         
-        //get temperature of forehead
-        if(xCoord == foreTX && yCoord == foreTY){
-            self.foreheadSet = YES;
-
-            //store in dictionary
-            self.tempPoints[@"forehead"] = [NSNumber numberWithFloat:degreesKelvin];
-            
-            //store (thermal) coordinates
-            self.foreheadCheekPositions[@"forehead"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
+        //get temperature of forehead, check if wihtin foreheadrectangle bounds
+        if((int)xCoord >= (int)CGRectGetMinX(foreheadRect)
+           && (int)xCoord <= (int)CGRectGetMaxX(foreheadRect)
+           && (int)yCoord >= (int)CGRectGetMinY(foreheadRect)
+           && (int)yCoord <= (int)CGRectGetMaxY(foreheadRect)){
+            [foreheadTemps addObject:[NSNumber numberWithFloat:degreesKelvin]];
         }
         
-        if(xCoord == leftTX && yCoord == leftTY) {
-            //store in dictionary
-            self.tempPoints[@"left_cheek"] = [NSNumber numberWithFloat:degreesKelvin];
-            
-            //store (thermal) coordinates
-            self.foreheadCheekPositions[@"left_cheek"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
+        //get temperature of leftcheek
+        if((int)xCoord >= (int)CGRectGetMinX(leftCheekRect)
+           && (int)xCoord <= (int)CGRectGetMaxX(leftCheekRect)
+           && (int)yCoord >= (int)CGRectGetMinY(leftCheekRect)
+           && (int)yCoord <= (int)CGRectGetMaxY(leftCheekRect)) {
+            [leftCheekTemps addObject:[NSNumber numberWithFloat:degreesKelvin]];
         }
         
-        if(xCoord == rightTX && yCoord == rightTY) {
-            //store in dictionary
-            self.tempPoints[@"right_cheek"] = [NSNumber numberWithFloat:degreesKelvin];
-            
-            //store (thermal) coordinates
-            self.foreheadCheekPositions[@"right_cheek"] = [NSValue valueWithCGPoint:CGPointMake(xCoord,yCoord)];
+        //get temperature of rightcheek
+        if((int)xCoord >= (int)CGRectGetMinX(rightCheekRect)
+           && (int)xCoord <= (int)CGRectGetMaxX(rightCheekRect)
+           && (int)yCoord >= (int)CGRectGetMinY(rightCheekRect)
+           && (int)yCoord <= (int)CGRectGetMaxY(rightCheekRect)) {
+            [rightCheekTemps addObject:[NSNumber numberWithFloat:degreesKelvin]];
         }
     }
+    
+    //after getting all the temperature values, calculate average temperature
+    
+    int i;
+    float foreheadTotal;
+    float leftCheekTotal;
+    float rightCheekTotal;
+    
+    //forehead average temperature
+    for(i = 0; i < [foreheadTemps count]; i++) {
+        foreheadTotal += [foreheadTemps[i] floatValue];
+    }
+    foreheadTotal = foreheadTotal/[foreheadTemps count]; //average
+    //store in dictionary
+    self.tempPoints[@"forehead"] = [NSNumber numberWithFloat:foreheadTotal];
+    //store coordinates of the origin
+    self.foreheadCheekPositions[@"forehead"] = [NSValue valueWithCGPoint:CGPointMake(foreheadRect.origin.x,foreheadRect.origin.y)];
+    
+    //left cheek average temperature
+    for(i = 0; i < [leftCheekTemps count]; i++) {
+        leftCheekTotal += [leftCheekTemps[i] floatValue];
+    }
+    leftCheekTotal = leftCheekTotal/[leftCheekTemps count];
+    self.tempPoints[@"left_cheek"] = [NSNumber numberWithFloat:leftCheekTotal];
+    self.foreheadCheekPositions[@"left_cheek"] = [NSValue valueWithCGPoint:CGPointMake(leftCheekRect.origin.x,leftCheekRect.origin.y)];
+    
+    //right cheek average temperature
+    for(i = 0; i < [rightCheekTemps count]; i++) {
+        rightCheekTotal += [rightCheekTemps[i] floatValue];
+    }
+    rightCheekTotal = rightCheekTotal/[rightCheekTemps count];
+    self.tempPoints[@"right_cheek"] = [NSNumber numberWithFloat:rightCheekTotal];
+    self.foreheadCheekPositions[@"right_cheek"] = [NSValue valueWithCGPoint:CGPointMake(rightCheekRect.origin.x, rightCheekRect.origin.y)];
+    
+    //FACE DETECTION
+    if(foreheadTotal - (leftCheekTotal + rightCheekTotal)/2 >= 2) {
+        self.faceHeatDetected = YES;
+    }
+    else {
+        self.faceHeatDetected = NO;
+    }
+
 }
 
 // utility routing used during image capture to set up capture orientation
@@ -440,9 +511,10 @@
 
 - (UIImage *)imageByDrawingCircleOnImage:(UIImage *)image
 {
-    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+//    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+//    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
 
+    //transform the points to the correct coordinates
     CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
     CGAffineTransform transformToUIKit = CGAffineTransformTranslate(transform, 0, -image.size.height);
 
@@ -464,12 +536,14 @@
     // get the context for CoreGraphics
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
+    CGPoint origin = CGPointApplyAffineTransform(faceFeature.bounds.origin, transformToUIKit);
+
     
     if(faceFeature.hasLeftEyePosition){
         // set stroking color and draw circle
         [[UIColor redColor] setStroke];
         CGPoint p = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
-        CGRect leftEyeRect =  CGRectMake(p.x-faceWidth*0.15, p.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        CGRect leftEyeRect =  CGRectMake(p.x-faceWidth*0.1, p.y-faceWidth*0.1, faceWidth*0.2, faceWidth*0.2);
         leftEyeRect = CGRectInset(leftEyeRect, 0, 0);
         CGContextStrokeRect(ctx, leftEyeRect);
     }
@@ -478,7 +552,7 @@
         // set stroking color and draw circle
         [[UIColor blueColor] setStroke];
         CGPoint p = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
-        CGRect rightEyeRect =  CGRectMake(p.x-faceWidth*0.15, p.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3);
+        CGRect rightEyeRect =  CGRectMake(p.x-faceWidth*0.1, p.y-faceWidth*0.1, faceWidth*0.2, faceWidth*0.2);
         rightEyeRect = CGRectInset(rightEyeRect, 0, 0);
         CGContextStrokeRect(ctx, rightEyeRect);
     }
@@ -492,7 +566,41 @@
         mouthRect = CGRectInset(mouthRect, 0, 0);
         CGContextStrokeRect(ctx, mouthRect);
     }
-    
+    //forehead
+    if(faceFeature.hasLeftEyePosition && faceFeature.hasRightEyePosition) {
+        CGPoint leftEye = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
+        CGPoint rightEye = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
+
+        CGPoint foreV = CGPointMake((leftEye.x + rightEye.x)/2, (origin.y - faceFeature.bounds.size.height + fminf(rightEye.y, leftEye.y))/2);
+        [[UIColor orangeColor] setStroke];
+        CGRect foreheadRect =  CGRectMake(foreV.x-faceWidth*0.1, foreV.y-faceWidth*0.1, faceWidth*0.2, faceWidth*0.2);
+        foreheadRect = CGRectInset(foreheadRect, 0, 0);
+        CGContextStrokeRect(ctx, foreheadRect);
+    }
+    //left cheek
+    if(faceFeature.hasLeftEyePosition && faceFeature.hasMouthPosition) {
+        CGPoint leftEye = CGPointApplyAffineTransform(faceFeature.leftEyePosition, transformToUIKit);
+        CGPoint mouth = CGPointApplyAffineTransform(faceFeature.mouthPosition, transformToUIKit);
+        
+        CGPoint cheekV = CGPointMake(leftEye.x - 25, (leftEye.y + mouth.y)/2);
+        [[UIColor whiteColor] setStroke];
+        CGRect leftCheekRect =  CGRectMake(cheekV.x-faceWidth*0.1, cheekV.y-faceHeight*0.1, faceWidth*0.1, faceHeight*0.2);
+        leftCheekRect = CGRectInset(leftCheekRect, 0, 0);
+        CGContextStrokeRect(ctx, leftCheekRect);
+
+    }
+    //right cheek
+    if(faceFeature.hasRightEyePosition && faceFeature.hasMouthPosition) {
+        CGPoint rightEye = CGPointApplyAffineTransform(faceFeature.rightEyePosition, transformToUIKit);
+        CGPoint mouth = CGPointApplyAffineTransform(faceFeature.mouthPosition, transformToUIKit);
+        
+        CGPoint cheekV = CGPointMake(rightEye.x + 25, (rightEye.y + mouth.y)/2);
+        [[UIColor cyanColor] setStroke];
+        CGRect rightCheekRect =  CGRectMake(cheekV.x, cheekV.y-faceHeight*0.1, faceWidth*0.1, faceHeight*0.2);
+        rightCheekRect = CGRectInset(rightCheekRect, 0, 0);
+        CGContextStrokeRect(ctx, rightCheekRect);
+    }
+
     
     
     // make circle rect 5 px from border

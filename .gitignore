@@ -4,14 +4,11 @@
 FaceHeat2/pods/**
 podfile.lock
 **/xcuserdata/*
-FaceHeat2/FLIROneSDK.bundle*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.bundle*
-FaceHeat2/FLIROneSDK.framework*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.framework/FLIROneSDK*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.framework/Headers*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.framework/Versions/A/Headers/*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.framework/Versions/Current*
-FaceHeat2/FaceHeatIOS/FLIROneSDK.framework/Versions/A/FLIROneSDK
+
+
+
+FLIROneSDK.framework/**
+FLIROneSDK.bundle/**
 
 # OS X Finder
 .DS_Store
